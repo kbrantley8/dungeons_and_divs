@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import '../Style/Home.css'
 import background_img from '../dnd_background.webp'
+import Database from '../Backend/Database.js'
 
 class Home extends Component {
 
@@ -8,7 +9,20 @@ class Home extends Component {
 
         super(props);
 
-        this.state={}
+        this.state={
+            characters: []
+        }
+    }
+
+    async componentDidMount() {
+        var characters = Database.getCharacterInformation();
+        var tempThis = this;
+        window.setTimeout(function () {
+            characters.forEach((character) => {
+                console.log(character)
+            })
+            tempThis.setState({characters: characters})
+        }, 1000)
     }
 
     render() {
