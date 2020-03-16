@@ -98,78 +98,24 @@ export default Database;
 //         }
 //     },
 //     skills: {
-//         'acrobatics': {
-//             'modifier': 2,
-//             'proficient': true
-//         },
-//         'animal_handling': {
-//             'modifier': 2,
-//             'proficient': true
-//         },
-//         'arcana': {
-//             'modifier': 2,
-//             'proficient': true
-//         },
-//         'athletics': {
-//             'modifier': 2,
-//             'proficient': true
-//         },
-//         'deception': {
-//             'modifier': 2,
-//             'proficient': true
-//         },
-//         'history': {
-//             'modifier': 2,
-//             'proficient': true
-//         },
-//         'insight': {
-//             'modifier': 2,
-//             'proficient': true
-//         },
-//         'intimidation': {
-//             'modifier': 2,
-//             'proficient': true
-//         },
-//         'investigation': {
-//             'modifier': 2,
-//             'proficient': true
-//         },
-//         'medicine': {
-//             'modifier': 2,
-//             'proficient': true
-//         },
-//         'nature': {
-//             'modifier': 2,
-//             'proficient': true
-//         },
-//         'perception': {
-//             'modifier': 2,
-//             'proficient': true
-//         },
-//         'performance': {
-//             'modifier': 2,
-//             'proficient': true
-//         },
-//         'persuasion': {
-//             'modifier': 2,
-//             'proficient': true
-//         },
-//         'religion': {
-//             'modifier': 2,
-//             'proficient': true
-//         },
-//         'sleight_of_hand': {
-//             'modifier': 2,
-//             'proficient': true
-//         },
-//         'stealth': {
-//             'modifier': 2,
-//             'proficient': true
-//         },
-//         'survival': {
-//             'modifier': 2,
-//             'proficient': true
-//         },
+//         'acrobatics': 2,
+//         'animal_handling': 2,
+//         'arcana': 2,
+//         'athletics': 2,
+//         'deception': 2,
+//         'history': 2,
+//         'insight': 2,
+//         'intimidation': 2,
+//         'investigation': 2,
+//         'medicine': 2,
+//         'nature': 2,
+//         'perception': 2,
+//         'performance': 2,
+//         'persuasion': 2,
+//         'religion': 2,
+//         'sleight_of_hand': 2,
+//         'stealth': 2,
+//         'survival': 2,
 //     },
 //     armor_rating: 20,
 //     speed: 30,
