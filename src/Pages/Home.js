@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import '../Style/Home.css'
+import {Link} from 'react-router-dom'
 import background_img from '../dnd_background.webp'
 
 class Home extends Component {
@@ -16,6 +17,7 @@ class Home extends Component {
             <div>
                 <div style={{marginLeft: 'auto', marginRight: 'auto'}}>
                     <img alt="" src={background_img} style={{width: '100%'}}></img>
+                    <Link to="/CreateChar"> Hello </Link>
                 </div>
             </div>
         );

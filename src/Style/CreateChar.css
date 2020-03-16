@@ -1,0 +1,88 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+h2, h4 {
+    margin-bottom: 1vh;
+}
+
+.background {
+    background-attachment: scroll;
+    width: 100%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    background-image: URL(https://i.pinimg.com/originals/be/22/94/be2294d961358cf8ae34fa78353534af.jpg);
+    background-size: cover;
+}
+.container {
+    background-size: 100%, auto;
+    width: 90%;
+    display: inline-block;
+}
+
+.form-div {
+    margin-bottom: 2vh;
+    overflow: hidden;
+    border: solid;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+}
+
+.modifier-big {
+    position: relative;
+    border-radius: 50%;
+    border: solid;
+    border-width: 2px;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    z-index: 1;
+}
+
+.modifier-small {
+    position: relative;
+    border-radius: 50%;
+    border: solid;
+    border-width: 2px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    z-index: 2;
+}
+
+.skills-label {
+    margin-bottom: 1vh;
+}
+
+.skills-input {
+    width: 2vw;
+}
+.skills-left {
+    overflow: hidden;
+    float: left;
+    width: 33%
+
+}
+
+.skills-middle {
+    overflow: hidden;
+    width: 50%;
+    float: left;
+}
+
+.skills-right {
+    overflow: hidden;
+    margin-left: 50%;
+
+}
+
+.basic-info {
+    text-align: center;
+    width: 60px;
+    height: 60px;
+    margin-right: 20px;
+}
