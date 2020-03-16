@@ -39,6 +39,21 @@ const Database = {
             .collection("characters")
             .doc(id)
             .delete()
+    },
+    getListOfSpells() {
+        var spells = [];
+        firebase
+            .firestore()
+            .collection("spells")
+            .get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    var id = doc.id;
+                    var data = doc.data();
+                    spells.push({'id': id, 'data': data});
+                })
+            });
+        return spells;
     }
 
 

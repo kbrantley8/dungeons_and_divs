@@ -11,18 +11,23 @@ class Home extends Component {
         super(props);
 
         this.state={
-            characters: []
+            characters: [],
+            spells: []
         }
     }
 
     async componentDidMount() {
         var characters = Database.getCharacterInformation();
+        var spells = Database.getListOfSpells();
         var tempThis = this;
         window.setTimeout(function () {
-            characters.forEach((character) => {
-                console.log(character)
-            })
-            tempThis.setState({characters: characters})
+            // characters.forEach((character) => {
+            //     console.log(character)
+            // })
+            // spells.forEach((spell) => {
+            //     console.log(spell)
+            // })
+            tempThis.setState({characters: characters, spells: spells})
         }, 1000)
     }
 
