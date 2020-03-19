@@ -3,20 +3,27 @@ import uuidv4 from 'uuid/v4'
 
 const Database = {
     
-    getCharacterInformation () {
-        var characters = [];
-        firebase
+    async getCharacterInformation () {
+        var chars = [];
+        var promise = new Promise(function(resolve, reject) {
+            firebase
             .firestore()
             .collection("characters")
             .get()
             .then((querySnapshot) => {
+                var characters = [];
                 querySnapshot.forEach((doc) => {
                     var id = doc.id;
                     var data = doc.data();
                     characters.push({'id': id, 'data': data});
                 })
+                resolve(characters);
             });
-        return characters;
+        });
+        await promise.then(function(characters) {
+            chars = characters;
+        });
+        return chars;
     },
     addNewCharacter (data) {
         var newId = uuidv4();
@@ -40,20 +47,27 @@ const Database = {
             .doc(id)
             .delete()
     },
-    getListOfSpells() {
-        var spells = [];
-        firebase
-            .firestore()
-            .collection("spells")
-            .get()
-            .then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    var id = doc.id;
-                    var data = doc.data();
-                    spells.push({'id': id, 'data': data});
+    async getListOfSpells() {
+        var spellsList = [];
+        var promise = new Promise(function(resolve, reject) {
+            firebase
+                .firestore()
+                .collection("spells")
+                .get()
+                .then((querySnapshot) => {
+                    var spells = [];
+                    querySnapshot.forEach((doc) => {
+                        var id = doc.id;
+                        var data = doc.data();
+                        spells.push({'id': id, 'data': data});
+                    })
+                    resolve(spells)
                 })
-            });
-        return spells;
+        });
+        await promise.then(function(spells) {
+            spellsList = spells;
+        });
+        return spellsList;
     }
 
 
