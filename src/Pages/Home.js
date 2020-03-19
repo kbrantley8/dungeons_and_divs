@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import '../Style/Home.css'
 import {Link} from 'react-router-dom'
 import background_img from '../dnd_background.webp'
-import Database from '../Backend/Database.js'
+// import Database from '../Backend/Database.js'
+import HomePageController from '../Controller/HomePageController.js'
 
 class Home extends Component {
 
@@ -17,18 +18,8 @@ class Home extends Component {
     }
 
     async componentDidMount() {
-        var characters = Database.getCharacterInformation();
-        var spells = Database.getListOfSpells();
-        var tempThis = this;
-        window.setTimeout(function () {
-            // characters.forEach((character) => {
-            //     console.log(character)
-            // })
-            // spells.forEach((spell) => {
-            //     console.log(spell)
-            // })
-            tempThis.setState({characters: characters, spells: spells})
-        }, 1000)
+        var characters = await HomePageController.getAllCharacters();
+        this.setState({characters: characters});
     }
 
     render() {
