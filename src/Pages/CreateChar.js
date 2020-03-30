@@ -46,7 +46,8 @@ class CreateChar extends Component {
                                             </div>
                                         </div>
                                         
-                                        <input name="class" id="class" placeholder="Class"></input>    
+                                        <input name="class" id="class" placeholder="Class"></input>
+                                        <input name="class-1-level" id="level" placeholder="Lvl" style={{width:"2vw"}}></input>
                                     </div>
                                 </div>
                                 
@@ -259,7 +260,8 @@ class CreateChar extends Component {
     }
 
     addClass = (classNum) => {
-        var dummy = '<div id="multiClass"><input type="text" placeholder=Class></input></div>\r\n';
+        var dummy = 
+        '<div name="multiclass" id="multiClass"><input type="text" placeholder=Class></input><input name="level" id="level" placeholder="Lvl" style={{width:"2vw"}}></input></div>\r\n';
         $('#classDiv').append(dummy)
         classNum += 1;
     }
