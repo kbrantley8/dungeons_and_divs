@@ -47,6 +47,9 @@ const Database = {
             .doc(id)
             .delete()
     },
+    uploadPhoto(img) {
+        console.log(firebase.storage());
+    },
     async getListOfSpells() {
         var spellsList = [];
         var promise = new Promise(function(resolve, reject) {

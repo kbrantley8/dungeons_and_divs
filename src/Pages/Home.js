@@ -24,11 +24,19 @@ class Home extends Component {
 
     render() {
         return (
-            <div>
-                <div style={{marginLeft: 'auto', marginRight: 'auto'}}>
-                    <img alt="" src={background_img} style={{width: '100%'}}></img>
-                    <Link to="/CreateChar"> Hello </Link>
+            <div style={{backgroundImage: 'URL(https://i.pinimg.com/originals/be/22/94/be2294d961358cf8ae34fa78353534af.jpg)'}}>
+                <div>
+                    <img alt="" src={background_img} style={{width: '100%', height: '450px'}}></img>
                 </div>
+                <div>
+                    <div class="search-bar-container">
+                        <input placeholder="Search..." class="search-bar"></input>
+                    </div>
+                    <div>
+                        <button onClick={() => this.changePage("/CreateChar")} id="add-new-char-btn"> Add New Character </button>
+                    </div>
+                </div>
+                
             </div>
         );
     }
