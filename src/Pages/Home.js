@@ -19,6 +19,7 @@ class Home extends Component {
 
     async componentDidMount() {
         var characters = await HomePageController.getAllCharacters();
+        console.log(characters)
         this.setState({characters: characters});
     }
 
@@ -29,8 +30,8 @@ class Home extends Component {
                     <img alt="" src={background_img} style={{width: '100%', height: '450px'}}></img>
                 </div>
                 <div>
-                    <div class="search-bar-container">
-                        <input placeholder="Search..." class="search-bar"></input>
+                    <div className="search-bar-container">
+                        <input placeholder="Search..." className="search-bar"></input>
                     </div>
                     <div>
                         <button onClick={() => this.changePage("/CreateChar")} id="add-new-char-btn"> Add New Character </button>

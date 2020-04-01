@@ -1,6 +1,7 @@
 class CharacterModel {
-    constructor(id, data) {
+    constructor(id, data, img) {
         this.id = id;
+        this.img = img;
         this.name = data.name;
         this.race = data.race;
         this.class = data.class;

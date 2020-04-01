@@ -47,8 +47,21 @@ const Database = {
             .doc(id)
             .delete()
     },
-    uploadPhoto(img) {
-        console.log(firebase.storage());
+    uploadPhoto(img, imgName, userName) {
+        console.log(img)
+        firebase.storage().ref().child('avatars/' + userName + '/' + imgName).put(img).then(function(snapshot) {
+            console.log(userName + '\'s photo has been uploaded!')
+        })
+    },
+    async getAvatar(img) {
+        var urls;
+        var promise = new Promise(function(resolve, reject) {
+            resolve(firebase.storage().ref().child(img).getDownloadURL())
+        })
+        await promise.then(function(url) {
+            urls = url
+        });
+        return urls;
     },
     async getListOfSpells() {
         var spellsList = [];

@@ -13,15 +13,19 @@ class CreateChar extends Component {
 
         this.state={
             classNum: 0,
+            image: background_img,
+            imageName: 'dnd_avatar.webp',
             race: ''
         }
     }
 
     async componentDidMount() {
+        var parentThis = this;
         $("#edit-avatar-input").on('change', function() {
             var image = this.files[0];
+            var imageName = image.name;
+            parentThis.setState({image: image, imageName: imageName})
             $(".avatar-preview").attr('src', (URL.createObjectURL(image)))
-            CreateCharController.uploadAvatar(image)
         })
     }
 
@@ -291,9 +295,11 @@ class CreateChar extends Component {
             var elLevel = $("#level" + i);
             classes.push({'name': elClass.val(), 'level': parseInt(elLevel.val())})
         }
+        var userName = $("#name").val();
         var check = this.checkForEmptyInputs();
         if (check) {
             var data = {
+                imageSrc: 'avatars/' + $("#name").val() + '/' + this.state.imageName,
                 name: $("#name").val(),
                 race: $("#race").val(),
                 class: classes,
@@ -353,7 +359,9 @@ class CreateChar extends Component {
                 initiative: parseInt($("input[name='initiative']").val()),
                 hit_dice: parseInt($("input[name='hit-dice']").val())
             }
-            CreateCharController.createCharacter(data)
+            CreateCharController.createCharacter(data);
+            CreateCharController.uploadAvatar(this.state.image, this.state.imageName, userName);
+            this.changePage('/');
         }
     }
 

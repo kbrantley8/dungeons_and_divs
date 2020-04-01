@@ -5,8 +5,8 @@ var CreateCharController = {
     createCharacter: function (data) {
         Database.addNewCharacter(data)
     },
-    uploadAvatar: function (img) {
-        Database.uploadPhoto(img);
+    uploadAvatar: function (img, imgName, userName) {
+        Database.uploadPhoto(img, imgName, userName);
     }
 };
 
