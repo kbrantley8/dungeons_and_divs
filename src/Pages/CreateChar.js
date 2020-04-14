@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import '../Style/CreateChar.css'
 import CreateCharController from '../Controller/CreateCharController.js'
-import {Link} from 'react-router-dom'
 import background_img from '../dnd_background.webp'
 import $ from 'jquery'
 
@@ -12,7 +11,7 @@ class CreateChar extends Component {
         super(props);
 
         this.state={
-            classNum: 0,
+            classNum: 1,
             image: background_img,
             imageName: 'dnd_avatar.webp',
             race: ''
@@ -280,15 +279,14 @@ class CreateChar extends Component {
                             <button id="back-btn" type="button" onClick={() => this.changePage('/')}>Back</button>
                             <button id="submit-btn" type="button" onClick={() => this.handleSubmit()}>Submit</button>
                         </div>
-                        
-
+                        <button type="button" onClick={() => this.genRandomChar()}>Generate Random Character</button>
                     </div>
                 </form>
             </div>
         );
     }
 
-    handleSubmit = () => {
+    handleSubmit = async () => {
         var classes = [];
         for (var i = 0; i < this.state.classNum; i++) {
             var elClass = $("#class" + i);
@@ -299,7 +297,7 @@ class CreateChar extends Component {
         var check = this.checkForEmptyInputs();
         if (check) {
             var data = {
-                imageSrc: 'avatars/' + $("#name").val() + '/' + this.state.imageName,
+                imageSrc: 'avatars/' + $("#name").val().split(' ').join('_') + '/' + this.state.imageName,
                 name: $("#name").val(),
                 race: $("#race").val(),
                 class: classes,
@@ -359,9 +357,19 @@ class CreateChar extends Component {
                 initiative: parseInt($("input[name='initiative']").val()),
                 hit_dice: parseInt($("input[name='hit-dice']").val())
             }
-            CreateCharController.createCharacter(data);
-            CreateCharController.uploadAvatar(this.state.image, this.state.imageName, userName);
-            this.changePage('/');
+            var tempThis = this;
+            var promise  = new Promise(async function(resolve, reject) {
+                resolve(await CreateCharController.uploadAvatar(tempThis.state.image, tempThis.state.imageName, userName))
+            });
+            await promise.then(async function(temp) {
+                var nextpromise  = new Promise(async function(resolve, reject) {
+                    resolve(await CreateCharController.createCharacter(data))
+                });
+                await nextpromise.then(function(temp) {
+                    tempThis.changePage('/')
+                    // window.location.reload(false);
+                });
+            });
         }
     }
 
@@ -439,21 +447,25 @@ class CreateChar extends Component {
     }
 
     addClass = () => {
-        this.setState({classNum: this.state.classNum + 1}, function() {
-            var dummy = 
+        var dummy = 
             '<div name="multiclass" id="multiClass"><input type="text" placeholder=Class id="class' + this.state.classNum + '" ></input><input name="level" id="level' + this.state.classNum + '" type="number" placeholder="Lvl" style=width:2vw;></input></div>\r\n';
-            $('#classDiv').append(dummy)
-        })
+        $('#classDiv').append(dummy);
+        this.setState({classNum: this.state.classNum + 1})
     }
 
     removeClass = () => {
-        if (this.state.classNum > 0) {
-            $('#class' + this.state.classNum).parent().remove()
+        if (this.state.classNum > 1) {
+            $('#class' + (this.state.classNum - 1)).parent().remove()
             this.setState({classNum: this.state.classNum - 1})
         }
     }
     changePage = (page) => {
         this.props.history.push(page)
+    }
+    genRandomChar = () => {
+        $('input[type=number]').each(function(){
+            $(this).val(1)
+        })
     }
 }
 

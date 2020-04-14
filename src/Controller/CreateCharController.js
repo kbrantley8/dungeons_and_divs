@@ -1,12 +1,18 @@
 import Database from '../Backend/Database.js'
-import CharacterModel from '../Model/Character.js'
+import HomePageController from '../Controller/HomePageController.js'
 
 var CreateCharController = {
-    createCharacter: function (data) {
-        Database.addNewCharacter(data)
+    createCharacter: async function (data) {
+        var promise  = new Promise(function(resolve, reject) {
+            resolve(Database.addNewCharacter(data))
+        });
+        await promise.then(function(newId) {
+            HomePageController.addCharacter(data, newId);
+        });
+
     },
-    uploadAvatar: function (img, imgName, userName) {
-        Database.uploadPhoto(img, imgName, userName);
+    uploadAvatar: async function (img, imgName, userName) {
+        await Database.uploadPhoto(img, imgName, userName);
     }
 };
 

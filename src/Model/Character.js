@@ -2,6 +2,7 @@ class CharacterModel {
     constructor(id, data, img) {
         this.id = id;
         this.img = img;
+        this.imageSrc = data.imageSrc;
         this.name = data.name;
         this.race = data.race;
         this.class = data.class;
@@ -14,6 +15,9 @@ class CharacterModel {
         this.hit_points = data.hit_points;
         this.initiative = data.initiative;
         this.hit_dice = data.hit_dice;
+    }
+    setAvatar() {
+        this.img = window.localStorage.getItem(this.name)
     }
 }
 

@@ -16,9 +16,45 @@
 .search-bar {
     width: 50%;
     margin-left: 25%;
-    margin-right: 25%;
+    margin-right: 24%;
     border: 1px solid black;
     border-radius: 5px;
     font-size: 15px;
     padding: 5px 10px;
+}
+
+#list-of-users-container {
+    text-align:center;
+    width: 100%;
+}
+
+.list-of-users-row {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.user {
+    width: 30%;
+    float: left;
+    margin: 5px 10px;
+}
+
+.user-outline {
+    width: 90%;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: lightgrey;
+    padding: 8px 10px;
+    height: 252px;
+}
+
+.user-outline:hover {
+    cursor: pointer;
+    background-color: darkgrey;
+}
+
+body {
+    background-image: URL(https://i.pinimg.com/originals/be/22/94/be2294d961358cf8ae34fa78353534af.jpg);
+    background-size: cover;
 }
