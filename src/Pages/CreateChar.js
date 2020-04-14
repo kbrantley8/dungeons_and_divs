@@ -14,7 +14,8 @@ class CreateChar extends Component {
             classNum: 1,
             image: background_img,
             imageName: 'dnd_avatar.webp',
-            race: ''
+            race: '',
+            imageChange: false
         }
     }
 
@@ -22,9 +23,13 @@ class CreateChar extends Component {
         var parentThis = this;
         $("#edit-avatar-input").on('change', function() {
             var image = this.files[0];
-            var imageName = image.name;
-            parentThis.setState({image: image, imageName: imageName})
-            $(".avatar-preview").attr('src', (URL.createObjectURL(image)))
+            if (image) {
+                var imageName = image.name;
+                parentThis.setState({image: image, imageName: imageName})
+                parentThis.setState({imageChange: true})
+                $(".avatar-preview").attr('src', (URL.createObjectURL(image)))
+            }
+            
         })
     }
 
@@ -390,7 +395,10 @@ class CreateChar extends Component {
                 classCheck = false;
             }
         }
-        if ($("#name").val() === '' ||
+        if (!this.state.imageChange) {
+            showModal("You must upload an image for your avatar")
+            return false;
+        } else if ($("#name").val() === '' ||
             $("#race").val() === '' || !classCheck) {
             showModal("One of the character traits are blank (name, race, class)")
             return false;
