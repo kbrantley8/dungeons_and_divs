@@ -25,13 +25,22 @@ const Database = {
         });
         return chars;
     },
-    addNewCharacter (data) {
+    async addNewCharacter (data) {
         var newId = uuidv4();
-        firebase
-            .firestore()
-            .collection("characters")
-            .doc(newId)
-            .set(data)
+        var promise = new Promise(function(resolve, reject) {
+            firebase
+                .firestore()
+                .collection("characters")
+                .doc(newId)
+                .set(data)
+                .then(function() {
+                    resolve(newId)
+                })
+        });
+        await promise.then(function(id) {
+            newId = id;
+        });
+        return newId;
     },
     editCharacter (id, data) {
         firebase
@@ -46,6 +55,25 @@ const Database = {
             .collection("characters")
             .doc(id)
             .delete()
+    },
+    async uploadPhoto(img, imgName, userName) {
+        var userNameUse = userName.split(' ').join('_');
+        var promise = new Promise(function(resolve, reject) {
+            resolve(firebase.storage().ref().child('avatars/' + userNameUse + '/' + imgName).put(img))
+        })
+        await promise.then(function(id) {
+            console.log(userName + '\'s photo has been uploaded!')
+        });
+    },
+    async getAvatar(img) {
+        var urls;
+        var promise = new Promise(function(resolve, reject) {
+            resolve(firebase.storage().ref().child(img).getDownloadURL())
+        })
+        await promise.then(function(url) {
+            urls = url
+        });
+        return urls;
     },
     async getListOfSpells() {
         var spellsList = [];
