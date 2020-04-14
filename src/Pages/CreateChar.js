@@ -279,7 +279,7 @@ class CreateChar extends Component {
                             <button id="back-btn" type="button" onClick={() => this.changePage('/')}>Back</button>
                             <button id="submit-btn" type="button" onClick={() => this.handleSubmit()}>Submit</button>
                         </div>
-                        <button type="button" onClick={() => this.genRandomChar()}>Generate Random Character</button>
+                        {/* <button type="button" onClick={() => this.genRandomChar()}>Generate Random Character</button> */}
                     </div>
                 </form>
             </div>
