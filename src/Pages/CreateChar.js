@@ -56,34 +56,117 @@ class CreateChar extends Component {
                             <div className="traits-column">
                                 <div className="first-entry">
                                     <div className="label">RACE</div>
-                                    <input></input>
-                                </div>
-                                <div className="second-entry">
-                                    <div className="label">CLASS</div>
-                                    <input></input>
-                                </div>
-                            </div>
-                            <div className="traits-column">
-                                <div className="first-entry">
-                                    <div className="label">BACKGROUND</div>
-                                    <input></input>
+                                    <input id="race"></input>
                                 </div>
                                 <div className="second-entry">
                                     <div className="label">EXPERIENCE</div>
-                                    <input></input>
+                                    <input name="exp"></input>
+                                </div>
+                            </div>
+                            <div className="traits-column move-top">
+                                <div className="first-entry">
+                                    <div className="label">BACKGROUND</div>
+                                    <input id="background"></input>
+                                </div>
+                            </div>
+                            <div className="traits-column move-top">
+                                <div className="first-entry">
+                                    <div className="traits-class">
+                                        <div className="label">CLASS</div>
+                                        <input></input>
+                                    </div>
+                                    <div className="traits-level">
+                                        <div className="label">LEVEL</div>
+                                        <input onChange={(e) => this.controlNumberInput(e, false)}></input>
+                                    </div>
+                                </div>
+                                <div className="second-entry">
+                                    <div className="traits-class">
+                                        <div className="label">CLASS</div>
+                                        <input></input>
+                                    </div>
+                                    <div className="traits-level">
+                                        <div className="label">LEVEL</div>
+                                        <input onChange={(e) => this.controlNumberInput(e, false)}></input>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div style={{width: '7%', marginLeft: 'auto', marginRight: 'auto'}}>
-                        <div style={{fontWeight: '700'}}>
+                    <div className="create-char-main-container">
+                        <div className="section">
+                            PROF.
+                            <div className="avatar">
+                            </div>
+                        </div>
+                        <div className="section">
                             STR
+                            <div className="attr-background">
+                                <input name="modifier-big-str" onChange={(e) => this.controlNumberInput(e, false)}></input>
+                            </div>
+                            <div className="attr-modifier">
+                                <input name="modifier-small-str" onChange={(e) => this.controlNumberInput(e, true)}></input>
+                            </div>
                         </div>
-                        <div style={{border: '2px solid darkgrey', borderRadius: '15px 0', height: '70px', backgroundColor: 'lightgrey'}}>
-                            <input style={{fontSize: '51px', backgroundColor: 'lightgrey', border: 'unset', width: '60px', textAlign: 'center', outline: 'none'}}></input>
+                        <div className="section">
+                            DEX
+                            <div className="attr-background">
+                                <input name="modifier-big-dex" onChange={(e) => this.controlNumberInput(e, false)}></input>
+                            </div>
+                            <div className="attr-modifier">
+                                <input name="modifier-small-dex" onChange={(e) => this.controlNumberInput(e, true)}></input>
+                            </div>
                         </div>
-                        <div style={{border: '2px solid darkgrey', borderRadius: '50px', width: '60%', marginLeft: 'auto', marginRight: 'auto', backgroundColor: 'white', bottom: '12px', position: 'relative'}}>
-                            7
+                        <div className="section">
+                            CON
+                            <div className="attr-background">
+                                <input name="modifier-big-con" onChange={(e) => this.controlNumberInput(e, false)}></input>
+                            </div>
+                            <div className="attr-modifier">
+                                <input name="modifier-small-con" onChange={(e) => this.controlNumberInput(e, true)}></input>
+                            </div>
+                        </div>
+                        <div className="section">
+                            INT
+                            <div className="attr-background">
+                                <input name="modifier-big-int" onChange={(e) => this.controlNumberInput(e, false)}></input>
+                            </div>
+                            <div className="attr-modifier">
+                                <input name="modifier-small-int" onChange={(e) => this.controlNumberInput(e, true)}></input>
+                            </div>
+                        </div>
+                        <div className="section">
+                            WIS
+                            <div className="attr-background">
+                                <input name="modifier-big-wis" onChange={(e) => this.controlNumberInput(e, false)}></input>
+                            </div>
+                            <div className="attr-modifier">
+                                <input name="modifier-small-wis" onChange={(e) => this.controlNumberInput(e, true)}></input>
+                            </div>
+                        </div>
+                        <div className="section">
+                            CHA
+                            <div className="attr-background">
+                                <input name="modifier-big-cha" onChange={(e) => this.controlNumberInput(e, false)}></input>
+                            </div>
+                            <div className="attr-modifier">
+                                <input name="modifier-small-cha" onChange={(e) => this.controlNumberInput(e, true)}></input>
+                            </div>
+                        </div>
+                        <div className="section">
+                            AC
+                            <div className="attr-background">
+                                <input name="armor" onChange={(e) => this.controlNumberInput(e, false)}></input>
+                            </div>
+                        </div>
+                        <div className="section">
+                            HP
+                            <div className="attr-background">
+                                <input name="max-hp" onChange={(e) => this.controlNumberInput(e, false)}></input>
+                            </div>
+                            <div className="attr-modifier">
+                                <input name="hit-points" onChange={(e) => this.controlNumberInput(e, true)}></input>
+                            </div>
                         </div>
                     </div>
                     {/* <button type="button" onClick={() => this.genRandomChar()}>Generate Random Character</button> */}
@@ -91,6 +174,12 @@ class CreateChar extends Component {
 
             </div>
         );
+    }
+
+    controlNumberInput = (event, negatives = false) => {
+        var val = event.target.value;
+        val = (negatives) ? val.replace(/[^0-9-]+/, '') : val.replace(/\D/, '');
+        $(event.target).val(val)
     }
 
     handleSubmit = async () => {

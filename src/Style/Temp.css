@@ -8,9 +8,9 @@
 }
 
 .create-char-traits-container {
-    /* height: 200px; */
     padding: 15px 20px;
-    border: 1px solid black;
+    /* border: 1px solid black; */
+    color: #696969;
 }
 
 .create-char-traits-container input {
@@ -46,7 +46,7 @@
 
 .create-char-traits-right-side {
     display: inline-block;
-    vertical-align: top;
+    vertical-align: bottom;
     width: 55%;
     min-height: 100%;
 }
@@ -64,16 +64,90 @@
 
 .create-char-traits-right-side .traits-column input{
     margin-top: 4px;
-    font-size: 24px;
+    font-size: 18px;
 }
 
 .create-char-traits-right-side .traits-column .second-entry{
-    margin-top: 15px;
+    margin-top: 25px;
 }
 .create-char-traits-right-side .traits-column .first-entry{
     margin-top: 12px;
 }
 
-.traits-column input {
-    padding-left: 5px;
+.create-char-traits-right-side .traits-column .traits-class{
+    width: 60%;
+    display: inline-block;
+}
+
+.create-char-traits-right-side .traits-column .traits-level{
+    width: 40%;
+    display: inline-block;
+}
+
+.move-top {
+    vertical-align: top;
+}
+
+/* HERE 6 chars */
+.create-char-main-container {
+    background-color: white;
+    padding: 15px 30px;
+    text-align: center;
+}
+
+.create-char-main-container .section {
+    width: 9%;
+    /* border: 1px solid black; */
+    text-align: center;
+    font-weight: 700;
+    display: inline-block;
+    margin-right: 18px;
+    vertical-align: top;
+}
+
+.create-char-main-container .section:last-child {
+    margin-right: 0px;
+}
+
+.create-char-main-container .section .avatar {
+    background-color: lightgrey;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    border:2px solid darkgrey;
+    margin-top: 5px;
+    display: inline-block;
+}
+
+.create-char-main-container .section .attr-background {
+    border: 2px solid darkgrey;
+    border-radius: 15px 0;
+    height: 75px;
+    background-color: lightgrey;
+    margin-top: 5px;
+}
+
+.create-char-main-container .section .attr-background input{
+    font-size: 51px;
+    background-color: lightgrey;
+    border: unset;
+    width: 60px;
+    text-align: center;
+    outline: none;
+}
+
+.create-char-main-container .section .attr-modifier input {
+    border: unset;
+    border: 2px solid darkgrey;
+    border-radius: 50px;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    position: relative;
+    bottom: 14px;
+    outline: unset;
+    text-align: center;
+    font-weight: 700;
+    font-size: 18px;
 }
