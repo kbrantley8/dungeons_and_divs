@@ -1,0 +1,79 @@
+.create-char-body-container {
+    background-color: white;
+    padding: 15px 30px
+}
+
+.create-char-dnd-emblem {
+    width: 100%;
+}
+
+.create-char-traits-container {
+    /* height: 200px; */
+    padding: 15px 20px;
+    border: 1px solid black;
+}
+
+.create-char-traits-container input {
+    outline: unset;
+    border: unset;
+    border-bottom: 1px solid darkgrey;
+    width: 90%;
+}
+
+.create-char-traits-left-side {
+    width: 45%;
+    display: inline-block;
+}
+
+.right-arrow {
+    position: relative;
+    top: 35px;
+    width: 0px;
+    height: 0px;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-left: 7px solid black;
+}
+
+.create-char-name {
+    padding-left: 18px;
+    font-size: 40px;
+}
+
+.create-char-traits-input-container {
+    margin-left: 15px;
+}
+
+.create-char-traits-right-side {
+    display: inline-block;
+    vertical-align: top;
+    width: 55%;
+    min-height: 100%;
+}
+
+.create-char-traits-right-side .traits-column{
+    width: 33%;
+    display: inline-block;
+    position: relative;
+}
+
+.create-char-traits-right-side .traits-column .label {
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.create-char-traits-right-side .traits-column input{
+    margin-top: 4px;
+    font-size: 24px;
+}
+
+.create-char-traits-right-side .traits-column .second-entry{
+    margin-top: 15px;
+}
+.create-char-traits-right-side .traits-column .first-entry{
+    margin-top: 12px;
+}
+
+.traits-column input {
+    padding-left: 5px;
+}

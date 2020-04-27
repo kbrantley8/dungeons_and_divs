@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import '../Style/CreateChar.css'
 import CreateCharController from '../Controller/CreateCharController.js'
 import background_img from '../dnd_background.webp'
+import background_img_up from '../dnd_background_updated.png'
+import '../Style/Temp.css'
 import $ from 'jquery'
 
 class CreateChar extends Component {
@@ -41,252 +43,52 @@ class CreateChar extends Component {
                         <span id="growl-message"></span>
                     </div>
                 </div>
-                <form>
-                    <div className="background">
-                        <div className="container">
-
-                            {/* Name Class and Race Div*/}
-                            <div className="form-div">
-                                <div className="avatar-container">
-                                    <img src={background_img} alt="" className="avatar-preview"></img>
-                                    <input id="edit-avatar-input" type="file" style={{display: 'none'}}></input>
-                                    <button id="edit-avatar" type="button" onClick={() => this.handleEditAvatar()}>Edit Avatar</button>
-                                </div>
-                                <div>
-                                    <div style={{height:"100%", width:"33%", float:"left", overflow:"hidden"}}>
-                                        <h4>Race</h4>
-                                        <input name="race" id="race" placeholder="Race"></input>      
-                                    </div>
-
-                                    <div style={{overflow: "hidden", marginLeft:"33%"}}>
-
-                                        <div style={{width:"50%", float:"left", overflow:"hidden"}}>
-                                            <h2>Name</h2>
-                                            <input name="name" id="name" placeholder="Name"></input>
-
-                                        </div>
-
-                                        <div id="classDiv"style={{overflow: "hidden", marginLeft:"50%"}}>
-                                            <div style={{marginTop: 21}}>
-                                                <h4 style={{margin: "0", float: "left", width: "50%", overflow: "hidden", textAlign:"right"}}>Class</h4>
-                                                <div style={{marginLeft: "52%", overflow:"hidden", textAlign:"left"}}>
-                                                    <button type="button" onClick={() => this.addClass()}>+</button>
-                                                    <button type="button" onClick={() => this.removeClass()}>-</button>        
-                                                </div>
-                                            </div>
-                                            
-                                            <input name="class" id="class0" placeholder="Class"></input>
-                                            <input name="class-1-level" id="level0" type="number" placeholder="Lvl" style={{width:"2vw"}}></input>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                
-                                
+                <div className="create-char-body-container">
+                    <div className="create-char-traits-container">
+                        <div className="create-char-traits-left-side">
+                            <img className="create-char-dnd-emblem" alt="" src={background_img_up}></img>
+                            <div className="create-char-traits-input-container">
+                                <div className="right-arrow"></div>
+                                <input id="name" className="create-char-name"></input>
                             </div>
-
-
-                            {/* Modifiers and Skills Div*/}
-                            <div className="form-div">
-
-                                {/* 6 Main attributes and their modifiers */}
-                                <div id="main-attr-container" style={{width:"50%", float:"left", overflow:"auto"}}>
-                                    <div>
-                                        <input name="modifier-big-str" id="modifier-big" type="number" className="modifier-big" placeholder="Str"></input>
-                                        <input name="modifier-small-str" id="modifier-small" type="number" className="modifier-small" placeholder="Str"></input>
-
-                                        <input name="modifier-big-dex" id="modifier-big" type="number" className="modifier-big" placeholder="Dex"></input>
-                                        <input name="modifier-small-dex" id="modifier-small" type="number" className="modifier-small" placeholder="Dex"></input>
-
-                                        <input name="modifier-big-wis"id="modifier-big" type= "number" className="modifier-big" placeholder="Wis"></input>
-                                        <input name="modifier-small-wis" id="modifier-small" type="number" className="modifier-small" placeholder="Wis"></input>
-                                    </div>
-                                    
-                                    <div>
-                                        <input name="modifier-big-int" id="modifier-big" type="number" className="modifier-big" placeholder="Int"></input>
-                                        <input name="modifier-small-int" id="modifier-small" type="number" className="modifier-small" placeholder="Int"></input>
-
-                                        <input name="modifier-big-cha" id="modifier-big" type="number" className="modifier-big" placeholder="Cha"></input>
-                                        <input name="modifier-small-cha" id="modifier-small" type="number" className="modifier-small" placeholder="Cha"></input>
-
-                                        <input name="modifier-big-con" id="modifier-big" type="number" className="modifier-big" placeholder="Con"></input>    
-                                        <input name="modifier-small-con" id="modifier-small" type="number" className="modifier-small" placeholder="Con"></input>
-                                    </div>
-                                    
-                                </div>
-
-                                {/* All 18 Skills */}
-                                <div id="skills-container" style={{overflow: "hidden", marginLeft:"50%"}}>
-
-                                    <div className="skills-left">
-
-                                        <div className="skills-label">
-                                            <label>Acrobatics </label>
-                                            <input name="acrobatics" className="skills-input" type="number"></input>    
-                                        </div>
-                                        
-
-                                        <div className="skills-label">
-                                            <label>Animal Handling </label>
-                                            <input name="animal-handling" className="skills-input" type="number"></input>    
-                                        </div>
-
-                                        <div className="skills-label">
-                                            <label>Arcana </label>
-                                            <input name="arcana" className="skills-input" type="number"></input>    
-                                        </div>
-
-                                        <div className="skills-label">
-                                            <label>Athletics </label>
-                                            <input name="athletics" className="skills-input" type="number"></input>    
-                                        </div>
-
-                                        <div className="skills-label">
-                                            <label>Deception </label>
-                                            <input name="deception" className="skills-input" type="number"></input>    
-                                        </div>
-
-                                        <div className="skills-label">
-                                            <label>History </label>
-                                            <input name="history" className="skills-input" type="number"></input>    
-                                        </div> 
-                                    </div>
-
-                                    <div style={{marginLeft:"33%", overflow:"hidden"}}>
-                                        <div className="skills-middle">
-
-                                            <div className="skills-label">
-                                                <label>Insight </label>
-                                                <input name="insight" className="skills-input" type="number"></input>    
-                                            </div>
-                                            
-
-                                            <div className="skills-label">
-                                                <label>Intimidation </label>
-                                                <input name="intimidation" className="skills-input" type="number"></input>    
-                                            </div>
-
-                                            <div className="skills-label">
-                                                <label>Investigation </label>
-                                                <input name="investigation" className="skills-input" type="number"></input>    
-                                            </div>
-
-                                            <div className="skills-label">
-                                                <label>Medicine </label>
-                                                <input name="medicine" className="skills-input" type="number"></input>    
-                                            </div>
-
-                                            <div className="skills-label">
-                                                <label>Nature </label>
-                                                <input name="nature" className="skills-input" type="number"></input>    
-                                            </div>
-
-                                            <div className="skills-label">
-                                                <label>Perception </label>
-                                                <input name="perception" className="skills-input" type="number"></input>    
-                                            </div>   
-                                        </div>
-                                        
-                                        <div className="skills-right">
-                                            <div className="skills-label">
-                                                <label>Performance </label>
-                                                <input name="performance" className="skills-input" type="number"></input>    
-                                            </div>
-                                            
-
-                                            <div className="skills-label">
-                                                <label>Persuasion </label>
-                                                <input name="persuasion" className="skills-input" type="number"></input>    
-                                            </div>
-
-                                            <div className="skills-label">
-                                                <label>Religion </label>
-                                                <input name="religion" className="skills-input" type="number"></input>    
-                                            </div>
-
-                                            <div className="skills-label">
-                                                <label>Sleight of Hand </label>
-                                                <input name="sleight-of-hand" className="skills-input" type="number"></input>    
-                                            </div>
-
-                                            <div className="skills-label">
-                                                <label>Stealth </label>
-                                                <input name="stealth" className="skills-input" type="number"></input>    
-                                            </div>
-
-                                            <div className="skills-label">
-                                                <label>Survival </label>
-                                                <input name="survival" className="skills-input" type="number"></input>    
-                                            </div>  
-                                        </div>    
-                                    </div>
-                                    
-                                    
-                                </div>
-                            </div>
-
-
-                            {/* Basic Info Div */}
-                            <div className="form-div">
-                                <input name="armor" className="basic-info" placeholder="Armor" type="number"></input>
-                                <input name="speed" className="basic-info" placeholder="Speed" type="number"></input>
-                                <input name="hit-dice" className="basic-info" placeholder="Hit Dice" type="number"></input>
-                                <input name="hit-points" className="basic-info" placeholder="Hit Points" type="number"></input>
-                                <input name="max-hp" className="basic-info" placeholder="Max HP" type="number"></input>
-                                <input name="initiative" className="basic-info" placeholder="Initiative" type="number"></input>
-                                <input name="exp" className="basic-info" placeholder="Exp." type="number"></input>
-                            </div>
-
-
-                            {/* Misc Tracking Div */}
-                            {/* <div className="form-div">
-                                <div style={{float:"left", overflow:"hidden", width: "50%"}}>
-                                    <textarea placeholder="Inventory"></textarea>
-                                </div>
-
-                                <div style={{marginLeft:"50%", overflow:"hidden"}}>
-                                    <div>
-                                        <input placeholder="Gold"></input>
-                                        <input placeholder="Spell Slots"></input>   
-                                    </div>
-                                    <div>
-                                        <input placeholder="Saving Throws"></input>
-                                        <input placeholder="Death Saves"></input>    
-                                    </div>
-                                </div>
-                                
-                            </div> */}
-                            
-
-                            {/* Spells, Attacks & Cantrips Div */}
-                            {/* <div className="form-div">
-                                <div style={{float:"left", overflow:"hidden", width: "50%"}}>
-                                    <textarea placeholder="Spells & Attacks"></textarea>
-                                </div>
-
-                                <div style={{marginLeft:"50%", overflow:"hidden"}}>
-                                    <textarea placeholder="Cantrips"></textarea>
-                                </div>
-                            </div> */}
-
-
-                            {/* Proficiencies & Languages Div */}
-                            {/* <div className="form-div">
-                                <input placeholder="Armor"></input>
-                                <input placeholder="Tools"></input>
-                                <input placeholder="Weapons"></input>
-                                <input placeholder="Languages"></input>
-                                <input placeholder="Carrying Capacity"></input>
-                                
-                            </div> */}
-
-                            {/* <input type="submit" value="Submit"></input> */}
-                            <button id="back-btn" type="button" onClick={() => this.changePage('/')}>Back</button>
-                            <button id="submit-btn" type="button" onClick={() => this.handleSubmit()}>Submit</button>
                         </div>
-                        {/* <button type="button" onClick={() => this.genRandomChar()}>Generate Random Character</button> */}
+                        <div className="create-char-traits-right-side">
+                            <div className="traits-column">
+                                <div className="first-entry">
+                                    <div className="label">RACE</div>
+                                    <input></input>
+                                </div>
+                                <div className="second-entry">
+                                    <div className="label">CLASS</div>
+                                    <input></input>
+                                </div>
+                            </div>
+                            <div className="traits-column">
+                                <div className="first-entry">
+                                    <div className="label">BACKGROUND</div>
+                                    <input></input>
+                                </div>
+                                <div className="second-entry">
+                                    <div className="label">EXPERIENCE</div>
+                                    <input></input>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </form>
+                    <div style={{width: '7%', marginLeft: 'auto', marginRight: 'auto'}}>
+                        <div style={{fontWeight: '700'}}>
+                            STR
+                        </div>
+                        <div style={{border: '2px solid darkgrey', borderRadius: '15px 0', height: '70px', backgroundColor: 'lightgrey'}}>
+                            <input style={{fontSize: '51px', backgroundColor: 'lightgrey', border: 'unset', width: '60px', textAlign: 'center', outline: 'none'}}></input>
+                        </div>
+                        <div style={{border: '2px solid darkgrey', borderRadius: '50px', width: '60%', marginLeft: 'auto', marginRight: 'auto', backgroundColor: 'white', bottom: '12px', position: 'relative'}}>
+                            7
+                        </div>
+                    </div>
+                    {/* <button type="button" onClick={() => this.genRandomChar()}>Generate Random Character</button> */}
+                </div>
+
             </div>
         );
     }
