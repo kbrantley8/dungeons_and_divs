@@ -1,6 +1,6 @@
 .create-char-body-container {
     background-color: white;
-    padding: 15px 30px
+    padding: 15px 20px
 }
 
 .create-char-dnd-emblem {
@@ -150,4 +150,54 @@
     text-align: center;
     font-weight: 700;
     font-size: 18px;
+}
+
+.create-char-skills-container {
+    width: 22%;
+    padding-left: 30px;
+    padding-right: 10px;
+    display: inline-block;
+}
+
+.create-char-skills-container h1{
+    font-size: 13px;
+    margin-bottom: 3px;
+    padding-left: 10px;
+}
+
+.create-char-skills-row {
+    padding: 5px 5px 0px 5px;
+}
+
+.create-char-skills-row .bullet {
+    border-radius: 50%;
+    border: 2px solid black;
+    width: 8px;
+    height: 8px;
+    display: inline-block;
+    position: relative;
+    top: 1px;
+}
+
+.create-char-skills-row input {
+    border: unset;
+    outline: unset;
+    background-color: lightgrey;
+    border-radius: 15px 0;
+    width: 16%;
+    margin-left: 5px;
+    font-size: 14px;
+    display: inline-block;
+    text-align: center;
+}
+
+.create-char-skills-row .title {
+    margin-left: 5px;
+    display: inline-block;
+}
+
+.create-char-skills-row .symbol {
+    display: inline-block;
+    color: 	#C0C0C0;
+    margin-left: 1px;
 }

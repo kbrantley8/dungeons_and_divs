@@ -102,74 +102,179 @@ class CreateChar extends Component {
                         <div className="section">
                             STR
                             <div className="attr-background">
-                                <input name="modifier-big-str" onChange={(e) => this.controlNumberInput(e, false)}></input>
+                                <input maxLength="2" name="modifier-big-str" onChange={(e) => this.controlNumberInput(e, false)}></input>
                             </div>
                             <div className="attr-modifier">
-                                <input name="modifier-small-str" onChange={(e) => this.controlNumberInput(e, true)}></input>
+                                <input maxLength="2" name="modifier-small-str" onChange={(e) => this.controlNumberInput(e, true)}></input>
                             </div>
                         </div>
                         <div className="section">
                             DEX
                             <div className="attr-background">
-                                <input name="modifier-big-dex" onChange={(e) => this.controlNumberInput(e, false)}></input>
+                                <input maxLength="2" name="modifier-big-dex" onChange={(e) => this.controlNumberInput(e, false)}></input>
                             </div>
                             <div className="attr-modifier">
-                                <input name="modifier-small-dex" onChange={(e) => this.controlNumberInput(e, true)}></input>
+                                <input maxLength="2" name="modifier-small-dex" onChange={(e) => this.controlNumberInput(e, true)}></input>
                             </div>
                         </div>
                         <div className="section">
                             CON
                             <div className="attr-background">
-                                <input name="modifier-big-con" onChange={(e) => this.controlNumberInput(e, false)}></input>
+                                <input maxLength="2" name="modifier-big-con" onChange={(e) => this.controlNumberInput(e, false)}></input>
                             </div>
                             <div className="attr-modifier">
-                                <input name="modifier-small-con" onChange={(e) => this.controlNumberInput(e, true)}></input>
+                                <input maxLength="2" name="modifier-small-con" onChange={(e) => this.controlNumberInput(e, true)}></input>
                             </div>
                         </div>
                         <div className="section">
                             INT
                             <div className="attr-background">
-                                <input name="modifier-big-int" onChange={(e) => this.controlNumberInput(e, false)}></input>
+                                <input maxLength="2" name="modifier-big-int" onChange={(e) => this.controlNumberInput(e, false)}></input>
                             </div>
                             <div className="attr-modifier">
-                                <input name="modifier-small-int" onChange={(e) => this.controlNumberInput(e, true)}></input>
+                                <input maxLength="2" name="modifier-small-int" onChange={(e) => this.controlNumberInput(e, true)}></input>
                             </div>
                         </div>
                         <div className="section">
                             WIS
                             <div className="attr-background">
-                                <input name="modifier-big-wis" onChange={(e) => this.controlNumberInput(e, false)}></input>
+                                <input maxLength="2" name="modifier-big-wis" onChange={(e) => this.controlNumberInput(e, false)}></input>
                             </div>
                             <div className="attr-modifier">
-                                <input name="modifier-small-wis" onChange={(e) => this.controlNumberInput(e, true)}></input>
+                                <input maxLength="2" name="modifier-small-wis" onChange={(e) => this.controlNumberInput(e, true)}></input>
                             </div>
                         </div>
                         <div className="section">
                             CHA
                             <div className="attr-background">
-                                <input name="modifier-big-cha" onChange={(e) => this.controlNumberInput(e, false)}></input>
+                                <input maxLength="2" name="modifier-big-cha" onChange={(e) => this.controlNumberInput(e, false)}></input>
                             </div>
                             <div className="attr-modifier">
-                                <input name="modifier-small-cha" onChange={(e) => this.controlNumberInput(e, true)}></input>
+                                <input maxLength="2" name="modifier-small-cha" onChange={(e) => this.controlNumberInput(e, true)}></input>
                             </div>
                         </div>
                         <div className="section">
                             AC
                             <div className="attr-background">
-                                <input name="armor" onChange={(e) => this.controlNumberInput(e, false)}></input>
+                                <input maxLength="2" name="armor" onChange={(e) => this.controlNumberInput(e, false)}></input>
                             </div>
                         </div>
                         <div className="section">
                             HP
                             <div className="attr-background">
-                                <input name="max-hp" onChange={(e) => this.controlNumberInput(e, false)}></input>
+                                <input name="hit-points" onChange={(e) => this.controlNumberInput(e, false)}></input>
                             </div>
                             <div className="attr-modifier">
-                                <input name="hit-points" onChange={(e) => this.controlNumberInput(e, true)}></input>
+                                <input name="max-hp" onChange={(e) => this.controlNumberInput(e, true)}></input>
                             </div>
                         </div>
                     </div>
                     {/* <button type="button" onClick={() => this.genRandomChar()}>Generate Random Character</button> */}
+                    <div className="create-char-skills-container">
+                        <h1>SKILLS</h1>
+                        <div className="create-char-skills-row">
+                            <div className="bullet"></div>
+                            <input></input>
+                            <div className="title">Acrobatics</div>
+                            <div className="symbol">(DEX)</div>
+                        </div>
+                        <div className="create-char-skills-row">
+                            <div className="bullet"></div>
+                            <input></input>
+                            <div className="title">Animal Handling</div>
+                            <div className="symbol">(WIS)</div>
+                        </div>
+                        <div className="create-char-skills-row">
+                            <div className="bullet"></div>
+                            <input></input>
+                            <div className="title">Arcana</div>
+                            <div className="symbol">(INT)</div>
+                        </div>
+                        <div className="create-char-skills-row">
+                            <div className="bullet"></div>
+                            <input></input>
+                            <div className="title">Atheletics</div>
+                            <div className="symbol">(STR)</div>
+                        </div>
+                        <div className="create-char-skills-row">
+                            <div className="bullet"></div>
+                            <input></input>
+                            <div className="title">Deception</div>
+                            <div className="symbol">(CHA)</div>
+                        </div>
+                        <div className="create-char-skills-row">
+                            <div className="bullet"></div>
+                            <input></input>
+                            <div className="title">History</div>
+                            <div className="symbol">(INT)</div>
+                        </div>
+                        <div className="create-char-skills-row">
+                            <div className="bullet"></div>
+                            <input></input>
+                            <div className="title">Insight</div>
+                            <div className="symbol">(WIS)</div>
+                        </div>
+                        <div className="create-char-skills-row">
+                            <div className="bullet"></div>
+                            <input></input>
+                            <div className="title">Intimidation</div>
+                            <div className="symbol">(CHA)</div>
+                        </div>
+                        <div className="create-char-skills-row">
+                            <div className="bullet"></div>
+                            <input></input>
+                            <div className="title">Inversigation</div>
+                            <div className="symbol">(INT)</div>
+                        </div>
+                        <div className="create-char-skills-row">
+                            <div className="bullet"></div>
+                            <input></input>
+                            <div className="title">Medicine</div>
+                            <div className="symbol">(WIS)</div>
+                        </div>
+                        <div className="create-char-skills-row">
+                            <div className="bullet"></div>
+                            <input></input>
+                            <div className="title">Nature</div>
+                            <div className="symbol">(INT)</div>
+                        </div>
+                        <div className="create-char-skills-row">
+                            <div className="bullet"></div>
+                            <input></input>
+                            <div className="title">Perception</div>
+                            <div className="symbol">(WIS)</div>
+                        </div>
+                        <div className="create-char-skills-row">
+                            <div className="bullet"></div>
+                            <input></input>
+                            <div className="title">Performance</div>
+                            <div className="symbol">(CHA)</div>
+                        </div>
+                        <div className="create-char-skills-row">
+                            <div className="bullet"></div>
+                            <input></input>
+                            <div className="title">Persuasion</div>
+                            <div className="symbol">(CHA)</div>
+                        </div>
+                        <div className="create-char-skills-row">
+                            <div className="bullet"></div>
+                            <input></input>
+                            <div className="title">Religion</div>
+                            <div className="symbol">(INT)</div>
+                        </div>
+                        <div className="create-char-skills-row">
+                            <div className="bullet"></div>
+                            <input></input>
+                            <div className="title">Sleight of Hand</div>
+                            <div className="symbol">(DEX)</div>
+                        </div>
+                        <div className="create-char-skills-row">
+                            <div className="bullet"></div>
+                            <input></input>
+                            <div className="title">Survival</div>
+                            <div className="symbol">(WIS)</div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
