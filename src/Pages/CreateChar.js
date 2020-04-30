@@ -18,7 +18,8 @@ class CreateChar extends Component {
             imageName: 'dnd_avatar.webp',
             race: '',
             imageChange: false,
-            skillProficiencies: {}
+            skillProficiencies: {},
+            extraClass: false
         }
     }
 
@@ -81,7 +82,7 @@ class CreateChar extends Component {
                                         <input onChange={(e) => this.controlNumberInput(e, false)}></input>
                                     </div>
                                 </div>
-                                <div className="second-entry">
+                                <div className="second-entry" id="extra_class" style={{display: 'none'}}>
                                     <div className="traits-class">
                                         <div className="label">CLASS</div>
                                         <input></input>
@@ -91,6 +92,7 @@ class CreateChar extends Component {
                                         <input onChange={(e) => this.controlNumberInput(e, false)}></input>
                                     </div>
                                 </div>
+                                <button className="hover-remove" onClick={(e) => this.handleClassClick(e)}><span>+</span></button>
                             </div>
                         </div>
                     </div>
@@ -286,6 +288,20 @@ class CreateChar extends Component {
 
             </div>
         );
+    }
+
+    handleClassClick = (event) => {
+        if (this.state.extraClass) {
+            $(".hover-remove").css('background-color', 'lightgreen');
+            $(".hover-remove").children().text('+');
+            $("#extra_class").hide();
+            this.setState({extraClass: false})
+        } else {
+            $(".hover-remove").css('background-color', 'red');
+            $(".hover-remove").children().text('x');
+            $("#extra_class").show();
+            this.setState({extraClass: true})
+        }
     }
 
     handleProficiencyClick = (event, num, title) => {
