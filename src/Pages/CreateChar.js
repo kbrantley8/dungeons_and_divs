@@ -17,7 +17,8 @@ class CreateChar extends Component {
             image: background_img,
             imageName: 'dnd_avatar.webp',
             race: '',
-            imageChange: false
+            imageChange: false,
+            skillProficiencies: {}
         }
     }
 
@@ -173,103 +174,109 @@ class CreateChar extends Component {
                     <div className="create-char-skills-container">
                         <h1>SKILLS</h1>
                         <div className="create-char-skills-row">
-                            <div className="bullet"></div>
+                            <div className="bullet" onClick={(e) => this.handleProficiencyClick(e, 1, 'Acrobatics')}></div>
                             <input></input>
                             <div className="title">Acrobatics</div>
                             <div className="symbol">(DEX)</div>
                         </div>
                         <div className="create-char-skills-row">
-                            <div className="bullet"></div>
+                            <div className="bullet" onClick={(e) => this.handleProficiencyClick(e, 2, 'Animal Handling')}></div>
                             <input></input>
                             <div className="title">Animal Handling</div>
                             <div className="symbol">(WIS)</div>
                         </div>
                         <div className="create-char-skills-row">
-                            <div className="bullet"></div>
+                            <div className="bullet" onClick={(e) => this.handleProficiencyClick(e, 3, 'Arcana')}></div>
                             <input></input>
                             <div className="title">Arcana</div>
                             <div className="symbol">(INT)</div>
                         </div>
                         <div className="create-char-skills-row">
-                            <div className="bullet"></div>
+                            <div className="bullet" onClick={(e) => this.handleProficiencyClick(e, 4, 'Atheletics')}></div>
                             <input></input>
                             <div className="title">Atheletics</div>
                             <div className="symbol">(STR)</div>
                         </div>
                         <div className="create-char-skills-row">
-                            <div className="bullet"></div>
+                            <div className="bullet" onClick={(e) => this.handleProficiencyClick(e, 5, 'Deception')}></div>
                             <input></input>
                             <div className="title">Deception</div>
                             <div className="symbol">(CHA)</div>
                         </div>
                         <div className="create-char-skills-row">
-                            <div className="bullet"></div>
+                            <div className="bullet" onClick={(e) => this.handleProficiencyClick(e, 6, 'History')}></div>
                             <input></input>
                             <div className="title">History</div>
                             <div className="symbol">(INT)</div>
                         </div>
                         <div className="create-char-skills-row">
-                            <div className="bullet"></div>
+                            <div className="bullet" onClick={(e) => this.handleProficiencyClick(e, 7, 'Insight')}></div>
                             <input></input>
                             <div className="title">Insight</div>
                             <div className="symbol">(WIS)</div>
                         </div>
                         <div className="create-char-skills-row">
-                            <div className="bullet"></div>
+                            <div className="bullet" onClick={(e) => this.handleProficiencyClick(e, 8, 'Intimidation')}></div>
                             <input></input>
                             <div className="title">Intimidation</div>
                             <div className="symbol">(CHA)</div>
                         </div>
                         <div className="create-char-skills-row">
-                            <div className="bullet"></div>
+                            <div className="bullet" onClick={(e) => this.handleProficiencyClick(e, 9, 'Investigation')}></div>
                             <input></input>
-                            <div className="title">Inversigation</div>
+                            <div className="title">Investigation</div>
                             <div className="symbol">(INT)</div>
                         </div>
                         <div className="create-char-skills-row">
-                            <div className="bullet"></div>
+                            <div className="bullet" onClick={(e) => this.handleProficiencyClick(e, 10, 'Medicine')}></div>
                             <input></input>
                             <div className="title">Medicine</div>
                             <div className="symbol">(WIS)</div>
                         </div>
                         <div className="create-char-skills-row">
-                            <div className="bullet"></div>
+                            <div className="bullet" onClick={(e) => this.handleProficiencyClick(e, 11, 'Nature')}></div>
                             <input></input>
                             <div className="title">Nature</div>
                             <div className="symbol">(INT)</div>
                         </div>
                         <div className="create-char-skills-row">
-                            <div className="bullet"></div>
+                            <div className="bullet" onClick={(e) => this.handleProficiencyClick(e, 12, 'Perception')}></div>
                             <input></input>
                             <div className="title">Perception</div>
                             <div className="symbol">(WIS)</div>
                         </div>
                         <div className="create-char-skills-row">
-                            <div className="bullet"></div>
+                            <div className="bullet" onClick={(e) => this.handleProficiencyClick(e, 13, 'Performance')}></div>
                             <input></input>
                             <div className="title">Performance</div>
                             <div className="symbol">(CHA)</div>
                         </div>
                         <div className="create-char-skills-row">
-                            <div className="bullet"></div>
+                            <div className="bullet" onClick={(e) => this.handleProficiencyClick(e, 14, 'Persuasion')}></div>
                             <input></input>
                             <div className="title">Persuasion</div>
                             <div className="symbol">(CHA)</div>
                         </div>
                         <div className="create-char-skills-row">
-                            <div className="bullet"></div>
+                            <div className="bullet" onClick={(e) => this.handleProficiencyClick(e, 15, 'Religion')}></div>
                             <input></input>
                             <div className="title">Religion</div>
                             <div className="symbol">(INT)</div>
                         </div>
                         <div className="create-char-skills-row">
-                            <div className="bullet"></div>
+                            <div className="bullet" onClick={(e) => this.handleProficiencyClick(e, 16, 'Sleight of Hand')}></div>
                             <input></input>
                             <div className="title">Sleight of Hand</div>
                             <div className="symbol">(DEX)</div>
                         </div>
                         <div className="create-char-skills-row">
-                            <div className="bullet"></div>
+                            <div className="bullet" onClick={(e) => this.handleProficiencyClick(e, 17, 'Stealth')}></div>
+                            <input></input>
+                            <div className="title">Stealth</div>
+                            <div className="symbol">(DEX)</div>
+                        </div>
+                        <div className="create-char-skills-row">
+                            <div className="bullet" onClick={(e) => this.handleProficiencyClick(e, 18, 'Survival')}></div>
                             <input></input>
                             <div className="title">Survival</div>
                             <div className="symbol">(WIS)</div>
@@ -279,6 +286,20 @@ class CreateChar extends Component {
 
             </div>
         );
+    }
+
+    handleProficiencyClick = (event, num, title) => {
+        var arr = this.state.skillProficiencies;
+        if (arr[num]) {
+            delete arr[num];
+            $(event.target).css('background-color', 'white');
+        } else {
+            if (Object.keys(arr).length < 2) {
+                arr[num] = title;
+                $(event.target).css('background-color', 'red');
+            }
+        }
+        this.setState({skillProficiencies: arr});
     }
 
     controlNumberInput = (event, negatives = false) => {
