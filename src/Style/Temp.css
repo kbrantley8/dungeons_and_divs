@@ -129,7 +129,7 @@
 
 .create-char-main-container .section .attr-background input{
     font-size: 51px;
-    background-color: lightgrey;
+    background-color: rgba(0, 0, 0, 0);
     border: unset;
     width: 60px;
     text-align: center;
@@ -222,4 +222,38 @@
     position: relative;
     top: -2px;
     left: -3px;
+}
+
+.remainder-skills-container {
+    width: 40%;
+    padding-left: 30px;
+    padding-right: 10px;
+    padding-bottom: 15px;
+    display: inline-block;
+}
+
+.remainder-skill {
+    width: 30%;
+    display: inline-block;
+    text-align: center;
+    padding: 0px 6px;
+}
+
+.remainder-skill h1 {
+    margin: unset;
+    font-size: 16px;
+}
+
+.remainder-skill input {
+    border: unset;
+    outline: unset;
+    background-color: lightgrey;
+    border-radius: 15px 0;
+    margin-left: 5px;
+    font-size: 51px;
+    width: 90%;
+    display: inline-block;
+    text-align: center;
+    padding: 5px 0px;
+    margin-top: 5px;
 }

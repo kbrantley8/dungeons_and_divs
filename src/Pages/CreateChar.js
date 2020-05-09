@@ -284,6 +284,20 @@ class CreateChar extends Component {
                             <div className="symbol">(WIS)</div>
                         </div>
                     </div>
+                    <div className="remainder-skills-container move-top">
+                        <div className="remainder-skill">
+                            <h1>SPEED</h1>
+                            <input maxLength="2" name="speed" onChange={(e) => this.controlNumberInput(e, false)}></input>
+                        </div>
+                        <div className="remainder-skill">
+                            <h1>INITIATIVE</h1>
+                            <input maxLength="2" name="initiative" onChange={(e) => this.controlNumberInput(e, false)}></input>
+                        </div>
+                        <div className="remainder-skill">
+                            <h1>HIT DICE</h1>
+                            <input maxLength="2" name="hit-dice" onChange={(e) => this.controlNumberInput(e, false)}></input>
+                        </div>
+                    </div>
                 </div>
 
             </div>
