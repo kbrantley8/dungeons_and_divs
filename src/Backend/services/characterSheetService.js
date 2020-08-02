@@ -131,4 +131,44 @@ exports.getCharacterSheet = async (sheet_id) => {
       console.log({status: e.response.status, message: e.response.data.error, location: "userService.getUser()"})
       return {status: e.response.status, message: e.response.data.error, location: "userService.getUser()"};
     }
+}
+
+exports.getUsersCharacterSheetsById = async (user_id) => {
+  try {
+    var characterSheets = await axios.get(urlbase + '/getUsersCharacterSheet', 
+      { 
+        params: {
+          user_id
+        }
+      }
+      ).then(response => {
+        return response.data
+      })
+
+      return characterSheets;
+
+  } catch (e) {
+    console.log({status: e.response.status, message: e.response.data.error, location: "userService.getUser()"})
+    return {status: e.response.status, message: e.response.data.error, location: "userService.getUser()"};
   }
+}
+
+exports.getUsersCharacterSheetsByEmail = async (email) => {
+  try {
+    var characterSheets = await axios.get(urlbase + '/getUsersCharacterSheet', 
+      { 
+        params: {
+          email
+        }
+      }
+      ).then(response => {
+        return response.data
+      })
+
+      return characterSheets;
+
+  } catch (e) {
+    console.log({status: e.response.status, message: e.response.data.error, location: "userService.getUser()"})
+    return {status: e.response.status, message: e.response.data.error, location: "userService.getUser()"};
+  }
+}

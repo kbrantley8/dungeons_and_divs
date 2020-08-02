@@ -1,4 +1,4 @@
-#add-new-char-btn {
+/* #add-new-char-btn {
     border-radius: 5px;
     border: 1px solid black;
     background-color: white;
@@ -52,9 +52,9 @@
 .user-outline:hover {
     cursor: pointer;
     background-color: darkgrey;
-}
+} */
 
-body {
+/* body {
     background-image: URL(https://i.pinimg.com/originals/be/22/94/be2294d961358cf8ae34fa78353534af.jpg);
     background-size: cover;
-}
+} */

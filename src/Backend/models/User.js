@@ -1,4 +1,4 @@
-// import { userStorage } from "../local_storage/userStorage";
+// import { userStorage } from "../localStorage/userStorage";
 
 const userService = require("../services/userService");
 // const Task = require("../model_data/Task");
@@ -49,7 +49,6 @@ module.exports = class User {
       this.account_type = user.account_type;
       this.party_id = user.party_id;
       this.bio = user.bio;
-      // this.updateUser();
       return this;
     } catch (e) {
       console.log(e);

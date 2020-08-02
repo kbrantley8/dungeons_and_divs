@@ -14,6 +14,16 @@ exports.getPartyMessages = async (party_id) => {
       
     });
 
+    // for (let val of messages) {
+    //   var user = await axios.get(urlbase + '/getUser', {
+    //     params: {
+    //       'user_id': val.user_id
+    //     }
+    //   }).then((response) => { return response.data })
+    //   val.user_first_name = user.first_name;
+    //   val.user_last_name = user.last_name;
+    // }
+
     return messages;
   } catch (e) {
     console.log({status: e.response.status, message: e.response.data.error})
