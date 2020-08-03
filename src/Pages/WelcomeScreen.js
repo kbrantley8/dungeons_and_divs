@@ -3,6 +3,7 @@ import '../Style/WelcomeScreen.css'
 import { TextField, Button, CircularProgress } from '@material-ui/core';
 import { Context as AppContext } from "../context/appContext";
 // import $ from 'jquery'
+import background_img from '../dnd_background.webp'
 
 class WelcomeScreen extends Component {
 
@@ -20,8 +21,11 @@ class WelcomeScreen extends Component {
     render() {
         return (
             <div className="col-md-12">
-                <div className="d-flex justify-content-center" style={{ marginTop: '150px'}}>
-                    <div style={{ padding: "15px", border: "1px solid lightblue", borderRadius: '10px', width: '50%'}}>
+                <div className="d-flex justify-content-center" style={{ marginTop: '15px' }}>
+                    <img alt="" style={{ width: '30%', border: '3px solid black', borderRadius: '50%' }} src={background_img} />
+                </div>
+                <div className="d-flex justify-content-center" style={{ marginTop: '15px', marginBottom: '150px'}}>
+                    <div style={{ padding: "15px", border: "1px solid lightblue", borderRadius: '10px', width: '30%'}}>
                         <div>
                             <TextField helperText={this.state.email_error} error={(this.state.email_error !== "")} style={{width: '100%'}} id="email" type="email" label="Email" value={this.state.email} onChange={(e) => this.setState({ email: e.target.value })}></TextField>
                         </div>

@@ -41,7 +41,7 @@ class RegisterScreen extends Component {
                         </div>
                         <div className="d-flex justify-content-center" style={{ marginTop: '7px'}}>
                             <FormControl variant="filled" style={{width: '75%'}}>
-                                <InputLabel id="account_type">Type</InputLabel>
+                                <InputLabel required id="account_type">Type</InputLabel>
                                 <Select
                                 value={this.state.account_type}
                                 onChange={(e) => this.setState({ account_type: e.target.value })}

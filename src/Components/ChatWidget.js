@@ -28,19 +28,17 @@ class ChatWidget extends Component {
     }
 
     async componentDidMount() {
-        this.secondUpdate();
-        this.updateMessagesAndUsers();
-        var temp_this = this;
-        window.setTimeout(function() {
-            temp_this.scrollToBottom()
-        }, 1000)
+        // this.secondUpdate();
+        // this.updateMessagesAndUsers();
+        // var temp_this = this;
+        // window.setTimeout(function() {
+        //     temp_this.scrollToBottom()
+        // }, 1000)
     }
 
     updateMessagesAndUsers = async () => {
         var messages = await messageService.getPartyMessages(this.state.party.id)
         var party_members = await partyService.getPartyMembersById(this.state.party.id)
-        console.log(messages)
-        console.log(this.state.messagesToShow)
         if (messages.length !== this.state.messagesToShow.length) {
             this.scrollToBottom()
         }
@@ -49,10 +47,12 @@ class ChatWidget extends Component {
     }
 
     scrollToBottom = () => {
-        window.setTimeout(function() {
-            var objDiv = document.getElementById("messages");
-            objDiv.scrollTop = objDiv.scrollHeight;
-        }, 500)
+        if (this.state.open) {
+            window.setTimeout(function() {
+                var objDiv = document.getElementById("messages");
+                objDiv.scrollTop = objDiv.scrollHeight;
+            }, 500)
+        }
     }
 
     secondUpdate = async () => {
@@ -71,18 +71,20 @@ class ChatWidget extends Component {
 
     render() {
         return (
-            <div style={{ position: 'fixed', bottom: '0px', left: '0px', width: '100%', height: '400px', backgroundColor: 'lightgreen', cursor: 'pointer'}} onClick={() => this.handleOpenChatWindow()}>
-                <div>    
+            <div style={{ position: 'fixed', bottom: '0px', left: '0px', width: '100%', maxHeight: '400px', backgroundColor: 'lightgreen', cursor: 'pointer'}}>
+                <div onClick={() => this.handleOpenChatWindow()}>    
                     <Typography style={{ marginTop: '7px', marginBottom: '7px' }} variant="h5" align="center">{this.state.party.name} Chat</Typography>
                 </div>
-                <div style={{ backgroundColor: 'lightgreen' }}>
-                    <div style={{ overflowY: "scroll", height: '290px'}} id="messages">
-                        {this.state.messagesToShow}
+                {(this.state.open) ? 
+                    <div style={{ backgroundColor: 'lightgreen', marginBottom: '50px' }}>
+                        <div style={{ overflowY: "scroll", height: '290px'}} id="messages">
+                            {this.state.messagesToShow}
+                        </div>
+                        <div style={{ padding: '15px', position: 'absolute', width: '100%', bottom: '0', paddingRight: '7px' }}>
+                            <TextField onKeyPress={(e) => this.handleEnterPress(e)} style={{width: '100%'}} id="message" type="text" label="Message" value={this.state.message} onChange={(e) => this.setState({ message: e.target.value })}></TextField>
+                        </div>
                     </div>
-                    <div style={{ padding: '15px', position: 'absolute', width: '100%', bottom: '0', paddingRight: '7px' }}>
-                        <TextField onKeyPress={(e) => this.handleEnterPress(e)} style={{width: '100%'}} id="message" type="text" label="Message" value={this.state.message} onChange={(e) => this.setState({ message: e.target.value })}></TextField>
-                    </div>
-                </div>
+                : null }
             </div>
         );
     }
@@ -106,6 +108,9 @@ class ChatWidget extends Component {
                 )
             }
         })
+        if (messages.length === 0) {
+            messages = <Typography color="error" align="center">There are no messages in this party chat</Typography>
+        }
         this.setState({ messagesToShow: messages })
     }
 
@@ -114,15 +119,21 @@ class ChatWidget extends Component {
         // objDiv.scrollTop = objDiv.scrollHeight;
         var msg = this.state.message;
         var new_msg = await messageService.createMessage(msg, this.state.user.id, this.state.party.id, new Date())
-        var messages = await messageService.getPartyMessages(this.state.party.id)
         await this.updateMessagesAndUsers()
-        this.setState({ messages: messages, message: "" })
-        var objDiv = document.getElementById("messages");
-        objDiv.scrollTop = objDiv.scrollHeight;
+        this.setState({ message: "" })
+        this.scrollToBottom();
     }
 
     handleOpenChatWindow = () => {
-        this.setState({ open: true })
+        if (!this.state.open) {
+            this.secondUpdate();
+            this.updateMessagesAndUsers();
+        }
+        this.setState({ open: !this.state.open }, function() {
+            if (this.state.open) {
+                this.scrollToBottom();
+            }
+        })  
     }
 }
 

@@ -1,11 +1,6 @@
 import React, { Component } from 'react'
 import '../Style/WelcomeScreen.css'
-import { TextField, Button, Typography, CircularProgress, InputAdornment } from '@material-ui/core';
-import { Context as AppContext } from "../context/appContext";
-import characterSheetService from "../Backend/services/characterSheetService"
-import userStorage from "../Backend/localStorage/userStorage";
-import messageService from "../Backend/services/messageService"
-// import $ from 'jquery'
+import { Typography } from '@material-ui/core';
 
 class MessageChat extends Component {
 
@@ -24,14 +19,14 @@ class MessageChat extends Component {
     render() {
         if (this.state.messageType === 0) {
             return (
-                    <div style={{ marginTop: '10px', backgroundColor: 'blue', width: '70%', marginRight: '15px', float: 'right', color: 'white', padding: '7px', borderRadius: '10px' }}>
+                    <div style={{ marginTop: '10px', backgroundColor: 'blue', width: '70%', marginRight: '15px', float: 'right', color: 'white', padding: '7px', border: '1px solid black', borderRadius: '10px' }}>
                         <Typography style={{ wordWrap: 'break-word' }}>{this.state.text}</Typography>
                         <Typography style={{ fontSize: '10px' }}>{this.state.sender_first_name} {this.state.sender_last_name} | {this.formatDate(this.state.date_created)}</Typography>
                     </div>
             );
         } else {
             return (
-                <div style={{ marginTop: '10px', backgroundColor: 'white', width: '70%', marginLeft: '15px', float: 'left', color: 'black', padding: '7px', borderRadius: '10px' }}>
+                <div style={{ marginTop: '10px', backgroundColor: 'white', width: '70%', marginLeft: '15px', float: 'left', color: 'black', padding: '7px', border: '1px solid black', borderRadius: '10px' }}>
                         <Typography style={{ wordWrap: 'break-word' }}>{this.state.text}</Typography>
                         <Typography style={{ fontSize: '10px' }}>{this.state.sender_first_name} {this.state.sender_last_name} | {this.formatDate(this.state.date_created)}</Typography>
                     </div>

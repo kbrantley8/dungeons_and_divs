@@ -18,8 +18,7 @@ class UserHomeScreen extends Component {
 
     constructor(props) {
         super(props);
-
-        // console.log(this.props.history.location.state)
+        
         this.state={
             user: userStorage.getUser(),
             loading: false,
@@ -41,9 +40,10 @@ class UserHomeScreen extends Component {
             }
         }
         if (party) {
-            this.setState({ newParty: false, showPartyInput: false })
+            this.setState({ sheets: sheets, loading: false, party: party, party_members: party_members, newParty: false, showPartyInput: false })
+        } else {
+            this.setState({ sheets: sheets, loading: false, party: {}, party_members: party_members, newParty: true, showPartyInput: false})
         }
-        this.setState({ sheets: sheets, loading: false, party: party, party_members: party_members })
     }
 
     render() {
@@ -89,7 +89,7 @@ class UserHomeScreen extends Component {
                             </div>
                             : null
                         }
-                        {((this.state.user.account_type === 1) && (this.state.party)) ? 
+                        {((this.state.user.account_type === 1) && (this.state.user.party_id)) ? 
                             <div className="d-flex justify-content-center" style={{ marginTop: '15px'}}>
                                 <div>    
                                     <div className="d-flex justify-content-center" style={{ marginTop: '7px' }}>
@@ -112,8 +112,6 @@ class UserHomeScreen extends Component {
                                     <Button style={{width: '100%'}} variant="contained" color="secondary" onClick={() => this.logout()}>Logout</Button>
                                 </div>
                             </div>
-                        </div>
-                        <div>
                         </div>
                     </div>
                 </div>
@@ -158,7 +156,7 @@ class UserHomeScreen extends Component {
         }
         var user = await userService.editUser(this.state.user.id, data)
         userStorage.storeUser(user)
-        this.setState({ loading: false, newParty: true, showPartyInput: false, party: undefined, user: userStorage.getUser() })
+        this.setState({ loading: false, newParty: true, showPartyInput: false, party: {}, user: userStorage.getUser() })
     }
 
     generatePreviewSheets = () => {
