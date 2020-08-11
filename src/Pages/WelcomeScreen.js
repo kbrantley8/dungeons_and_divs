@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import '../Style/WelcomeScreen.css'
-import { TextField, Button, CircularProgress } from '@material-ui/core';
+import { TextField, Button, CircularProgress, Typography, Divider } from '@material-ui/core';
 import { Context as AppContext } from "../context/appContext";
 // import $ from 'jquery'
 import background_img from '../dnd_background.webp'
+import DividerText from "../Components/DividerText"
 
 class WelcomeScreen extends Component {
 
@@ -20,28 +21,52 @@ class WelcomeScreen extends Component {
 
     render() {
         return (
-            <div className="col-md-12">
-                <div className="d-flex justify-content-center" style={{ marginTop: '15px' }}>
-                    <img alt="" style={{ width: '30%', border: '3px solid black', borderRadius: '50%' }} src={background_img} />
-                </div>
-                <div className="d-flex justify-content-center" style={{ marginTop: '15px', marginBottom: '150px'}}>
-                    <div style={{ padding: "15px", border: "1px solid lightblue", borderRadius: '10px', width: '30%'}}>
+            <div className="" style={{ height: '100vh', paddingTop: '5%' }}>
+                <div className="d-flex justify-content-center" style={{ marginTop: '0', marginBottom: '150px'}}>
+                    <div style={{ padding: "15px", border: "1px solid black", borderRadius: '10px', width: '30%', backgroundColor: '#F5F5F5'}}>
+                        <div className="d-flex justify-content-center">
+                            <img alt="" style={{ width: '80%', border: '3px solid black', borderRadius: '50%' }} src={background_img} />
+                        </div>
+                        <Typography style={{ fontWeight: 'bold', fontSize: '30px', marginTop: '15px' }} align="center">Login</Typography>
                         <div>
-                            <TextField helperText={this.state.email_error} error={(this.state.email_error !== "")} style={{width: '100%'}} id="email" type="email" label="Email" value={this.state.email} onChange={(e) => this.setState({ email: e.target.value })}></TextField>
+                            <TextField 
+                                variant="outlined"
+                                helperText={this.state.email_error} 
+                                error={(this.state.email_error !== "")} 
+                                style={{width: '100%', marginTop: '7px'}} 
+                                id="email" 
+                                type="email" 
+                                label="Email" 
+                                value={this.state.email} 
+                                onChange={(e) => this.setState({ email: e.target.value })}
+                                onKeyDown={(e) => this.onKeyDownHandler(e)}
+                            />
                         </div>
                         <div>
-                            <TextField helperText={this.state.password_error} error={(this.state.password_error !== "")} style={{width: '100%'}} id="password" type="password" label="Password" value={this.state.password} onChange={(e) => this.setState({ password: e.target.value })}></TextField>
+                            <TextField
+                                variant="outlined" 
+                                helperText={this.state.password_error} 
+                                error={(this.state.password_error !== "")} 
+                                style={{width: '100%', marginTop: '7px'}} 
+                                id="password" 
+                                type="password" 
+                                label="Password" 
+                                value={this.state.password} 
+                                onChange={(e) => this.setState({ password: e.target.value })}
+                                onKeyDown={(e) => this.onKeyDownHandler(e)}
+                            />
                         </div>
                         <div className="d-flex justify-content-center" style={{ marginTop: '15px'}}>
-                            <div>
+                            <div style={{ width: '100%' }}>
                                 {(this.state.loading) ? <div className="d-flex justify-content-center" style={{ marginBottom: '7px'}}>
                                     <CircularProgress />
                                 </div> : null}
                                 <div className="d-flex justify-content-center">
-                                    <Button style={{width: '100%'}} variant="contained" onClick={() => this.loginUser()}>Login</Button>
+                                    <Button style={{width: '70%', height: '40px'}} variant="contained" onClick={() => this.loginUser()}>Login</Button>
                                 </div>
+                                <DividerText text="or"/>
                                 <div className="d-flex justify-content-center" style={{ marginTop: '7px'}}>
-                                    <Button style={{width: '100%'}} variant="contained" color="primary" onClick={() => this.changePage('/register')}>Register</Button>
+                                    <Button style={{width: '70%', height: '40px'}} variant="contained" color="primary" onClick={() => this.changePage('/register')}>Register</Button>
                                 </div>
                             </div>
                         </div>
@@ -50,6 +75,7 @@ class WelcomeScreen extends Component {
             </div>
         );
     }
+
     loginUser = async () => {
         var valid = true;
         if (!this.state.email) {
@@ -96,6 +122,12 @@ class WelcomeScreen extends Component {
     changePage = (page) => {
         this.props.history.push(page)
     }
+
+    onKeyDownHandler = (e) => {
+        if (e.keyCode === 13) {
+           this.loginUser();
+        }
+    };
 }
 WelcomeScreen.contextType = AppContext;
 

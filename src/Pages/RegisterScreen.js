@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import { TextField, Button, FormControl, Select, InputLabel, MenuItem, CircularProgress } from '@material-ui/core';
+import { TextField, Button, FormControl, Select, InputLabel, MenuItem, CircularProgress, Typography } from '@material-ui/core';
 import { Context as AppContext } from "../context/appContext";
 // import $ from 'jquery'
+import background_img from '../dnd_background.webp'
+import DividerText from "../Components/DividerText"
 
 class RegisterScreen extends Component {
 
@@ -24,9 +26,13 @@ class RegisterScreen extends Component {
 
     render() {
         return (
-            <div className="col-md-12">
-                <div className="d-flex justify-content-center" style={{ marginTop: '150px'}}>
-                    <div style={{ padding: "15px", border: "1px solid lightblue", borderRadius: '10px', width: "50%"}}>
+            <div className="col-md-12" style={{ padding: '5% 0' }}>
+                <div className="d-flex justify-content-center">
+                    <div style={{ padding: "15px", border: "1px solid lightblue", borderRadius: '10px', width: "50%", backgroundColor: "#F5F5F5"}}>
+                        <div className="d-flex justify-content-center">
+                            <img alt="" style={{ width: '50%', border: '3px solid black', borderRadius: '50%' }} src={background_img} />
+                        </div>
+                        <Typography style={{ fontWeight: 'bold', fontSize: '30px', margin: '15px 0' }} align="center">Register</Typography>
                         <div>
                             <TextField style={{width: '100%'}} required variant="outlined" id="first_name" type="text" label="First Name" value={this.state.first_name} onChange={(e) => this.setState({ first_name: e.target.value })}></TextField>
                         </div>
@@ -52,15 +58,16 @@ class RegisterScreen extends Component {
                             </FormControl>
                         </div>
                         <div className="d-flex justify-content-center" style={{ marginTop: '15px'}}>
-                            <div>
+                            <div style={{ width: '100%' }}>
                                 {(this.state.loading) ? <div className="d-flex justify-content-center" style={{ marginBottom: '7px'}}>
                                     <CircularProgress />
                                 </div> : null}
                                 <div className="d-flex justify-content-center">
-                                    <Button style={{width: '100%'}} variant="contained" color="primary" onClick={() => this.registerUser()}>Register</Button>
+                                    <Button style={{width: '70%', height: '40px'}} variant="contained" color="primary" onClick={() => this.registerUser()}>Register</Button>
                                 </div>
+                                <DividerText text="or" />
                                 <div className="d-flex justify-content-center" style={{ marginTop: '7px'}}>
-                                    <Button style={{width: '100%'}} variant="contained" onClick={() => this.changePage('/')}>Back</Button>
+                                    <Button style={{width: '70%', height: '40px'}} variant="contained" onClick={() => this.changePage('/')}>Back to Login</Button>
                                 </div>
                             </div>
                         </div>

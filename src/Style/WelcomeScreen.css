@@ -54,7 +54,25 @@
     background-color: darkgrey;
 } */
 
-/* body {
-    background-image: URL(https://i.pinimg.com/originals/be/22/94/be2294d961358cf8ae34fa78353534af.jpg);
+body {
+    background-image: url(../resources/dnd_background.jpg);
     background-size: cover;
-} */
+    /* background-color: rgb(226, 16, 32) !important; */
+    /* background-color: #ff6961 !important; */
+    height: 100%;
+    width: 100%;
+}
+
+.line {
+    height: 1px;
+    width: 100%;
+    background: lightgrey;
+}
+
+.text-for-mid-line {
+    position: relative;
+    top: 36px;
+    background: #fff;
+    display: inline-block;
+    padding: 0 20px;
+}
