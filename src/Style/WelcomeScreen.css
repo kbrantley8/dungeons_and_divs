@@ -54,14 +54,23 @@
     background-color: darkgrey;
 } */
 
-body {
+/* body {
     background-image: url(../resources/dnd_background.jpg);
     background-size: cover;
-    /* background-color: rgb(226, 16, 32) !important; */
-    /* background-color: #ff6961 !important; */
     height: 100%;
     width: 100%;
-}
+} */
+
+/* background-color: rgb(226, 16, 32) !important;
+background-color: #ff6961 !important; */
+
+.bg-pic { 
+    background: url(../resources/dnd_background.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
 
 .line {
     height: 1px;

@@ -21,7 +21,7 @@ class WelcomeScreen extends Component {
 
     render() {
         return (
-            <div className="" style={{ height: '100vh', paddingTop: '5%' }}>
+            <div className="bg-pic" style={{ height: '100vh', paddingTop: '5%', overflowY: 'hidden' }}>
                 <div className="d-flex justify-content-center" style={{ marginTop: '0', marginBottom: '150px'}}>
                     <div style={{ padding: "15px", border: "1px solid black", borderRadius: '10px', width: '30%', backgroundColor: '#F5F5F5'}}>
                         <div className="d-flex justify-content-center">
@@ -64,7 +64,7 @@ class WelcomeScreen extends Component {
                                 <div className="d-flex justify-content-center">
                                     <Button style={{width: '70%', height: '40px'}} variant="contained" onClick={() => this.loginUser()}>Login</Button>
                                 </div>
-                                <DividerText text="or"/>
+                                <DividerText lineClassName="col-md-5" textClassName="col-md-2" text="or"/>
                                 <div className="d-flex justify-content-center" style={{ marginTop: '7px'}}>
                                     <Button style={{width: '70%', height: '40px'}} variant="contained" color="primary" onClick={() => this.changePage('/register')}>Register</Button>
                                 </div>
@@ -108,15 +108,27 @@ class WelcomeScreen extends Component {
         }
         var login_user = this.context.state.user;
         this.setState({ loading: false })
-        this.props.history.push({
-            pathname: '/home',
-            state: {
-                first_name: login_user.first_name,
-                last_name: login_user.last_name,
-                email: login_user.email,
-                user_id: login_user.id
-            }
-        })
+        if (login_user.account_type === 0) {
+            this.props.history.push({
+                pathname: '/home',
+                state: {
+                    first_name: login_user.first_name,
+                    last_name: login_user.last_name,
+                    email: login_user.email,
+                    user_id: login_user.id
+                }
+            })
+        } else if (login_user.account_type === 1) {
+            this.props.history.push({
+                pathname: '/home-dm',
+                state: {
+                    first_name: login_user.first_name,
+                    last_name: login_user.last_name,
+                    email: login_user.email,
+                    user_id: login_user.id
+                }
+            })
+        }
     }
 
     changePage = (page) => {

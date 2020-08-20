@@ -26,7 +26,7 @@ class RegisterScreen extends Component {
 
     render() {
         return (
-            <div className="col-md-12" style={{ padding: '5% 0' }}>
+            <div className="col-md-12 bg-pic" style={{ padding: '5% 0' }}>
                 <div className="d-flex justify-content-center">
                     <div style={{ padding: "15px", border: "1px solid lightblue", borderRadius: '10px', width: "50%", backgroundColor: "#F5F5F5"}}>
                         <div className="d-flex justify-content-center">
@@ -65,7 +65,7 @@ class RegisterScreen extends Component {
                                 <div className="d-flex justify-content-center">
                                     <Button style={{width: '70%', height: '40px'}} variant="contained" color="primary" onClick={() => this.registerUser()}>Register</Button>
                                 </div>
-                                <DividerText text="or" />
+                                <DividerText lineClassName="col-md-5" textClassName="col-md-2" text="or" />
                                 <div className="d-flex justify-content-center" style={{ marginTop: '7px'}}>
                                     <Button style={{width: '70%', height: '40px'}} variant="contained" onClick={() => this.changePage('/')}>Back to Login</Button>
                                 </div>
@@ -93,7 +93,11 @@ class RegisterScreen extends Component {
                 return;
             }
         }
-        this.changePage('/home')
+        if (account_type === 0) {
+            this.changePage('/home');
+        } else if (account_type === 1) {
+            this.changePage('/home-dm')
+        }
         this.setState({ loading: false })
     }
 

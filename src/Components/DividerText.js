@@ -10,7 +10,9 @@ class DividerText extends Component {
         this.state = {
             text: this.props.text,
             lineColor: this.props.lineColor,
-            textColor: this.props.textColor
+            textColor: this.props.textColor,
+            lineClassName: this.props.lineClassName,
+            textClassName: this.props.textClassName
         }
 
 
@@ -27,9 +29,9 @@ class DividerText extends Component {
         }
         return (
             <div className="row" style={{ margin: '15px 0'}}>
-                <div className="col-md-5" style={{ padding: '11px 0' }}><div style={lineStyle}></div></div>
-                <div className="col-md-2"><Typography align="center" style={textStyle}>{this.props.text}</Typography></div>
-                <div className="col-md-5" style={{ padding: '11px 0' }}><div style={lineStyle}></div></div>
+                <div className={this.state.lineClassName} style={{ padding: '11px 0' }}><div style={lineStyle}></div></div>
+                <div className={this.state.textClassName}><Typography align="center" style={textStyle}>{this.props.text}</Typography></div>
+                <div className={this.state.lineClassName} style={{ padding: '11px 0' }}><div style={lineStyle}></div></div>
             </div>
         )
     }

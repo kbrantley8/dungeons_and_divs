@@ -172,3 +172,23 @@ exports.getUsersCharacterSheetsByEmail = async (email) => {
     return {status: e.response.status, message: e.response.data.error, location: "userService.getUser()"};
   }
 }
+
+exports.deleteCharacterSheet = async (sheet_id) => {
+  try {
+    var if_success = await axios.delete(urlbase + '/deleteCharacterSheet', 
+      { 
+        data: {
+          sheet_id
+        }
+      }
+      ).then(response => {
+        return response.data
+      })
+
+      return if_success;
+
+  } catch (e) {
+    console.log({status: e.response.status, message: e.response.data.error, location: "userService.getUser()"})
+    return {status: e.response.status, message: e.response.data.error, location: "userService.getUser()"};
+  }
+}

@@ -9,6 +9,7 @@ import EditProfileScreen from "./Pages/EditProfileScreen"
 import CreateCharacterSheet from "./Pages/CreateCharacterSheet"
 import EditCharacterSheet from "./Pages/EditCharacterSheet"
 import PartyScreen from "./Pages/PartyScreen"
+import HomeDM from "./Pages/HomeDM"
 
 const Main = () => (
     <main>
@@ -22,6 +23,7 @@ const Main = () => (
             <Route path='/createCharacterSheet' component={CreateCharacterSheet}/>
             <Route path='/editCharacterSheet' component={EditCharacterSheet}/>
             <Route path='/party' component={PartyScreen}/>
+            <Route path='/home-dm' component={HomeDM}/>
         </Switch>
     </main>
 );

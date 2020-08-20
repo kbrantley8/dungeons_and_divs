@@ -71,7 +71,7 @@ class ChatWidget extends Component {
 
     render() {
         return (
-            <div style={{ position: 'fixed', bottom: '0px', left: '0px', width: '100%', maxHeight: '400px', backgroundColor: 'lightgreen', cursor: 'pointer'}}>
+            <div style={{ position: 'fixed', bottom: '0px', left: '0px', width: '100%', maxHeight: '400px', backgroundColor: 'lightgreen', cursor: 'pointer', zIndex: '100'}}>
                 <div onClick={() => this.handleOpenChatWindow()}>    
                     <Typography style={{ marginTop: '7px', marginBottom: '7px' }} variant="h5" align="center">{this.state.party.name} Chat</Typography>
                 </div>

@@ -94,7 +94,11 @@ class EditProfileScreen extends Component {
             data
         )
         this.setState({loading: false})
-        this.changePage('/home')
+        if (this.state.user.account_type === 0) {
+            this.changePage('/home');
+        } else if (this.state.user.account_type === 1) {
+            this.changePage('/home-dm')
+        }
     }
 
     changePage = (page) => {

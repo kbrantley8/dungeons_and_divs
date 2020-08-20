@@ -15,6 +15,7 @@ class EditProfileScreen extends Component {
             first_name: this.props.history.location.state.first_name,
             last_name: this.props.history.location.state.last_name,
             email: this.props.history.location.state.email,
+            bio: (this.props.history.location.state.bio) ? this.props.history.location.state.bio : undefined,
             id: this.props.history.location.state.id,
             loading: false
         }
@@ -40,6 +41,9 @@ class EditProfileScreen extends Component {
                         <div style={{ marginTop: '7px'}}>
                             <TextField style={{width: '100%'}} required variant="outlined" id="email" type="email" label="Email" value={this.state.email} onChange={(e) => this.setState({ email: e.target.value })}></TextField>
                         </div>
+                        <div style={{ marginTop: '7px'}}>
+                            <TextField style={{width: '100%'}} variant="outlined" multiline rows={5} label="Bio" value={this.state.bio} onChange={(e) => this.setState({ bio: e.target.value })}></TextField>
+                        </div>
                         <div className="d-flex justify-content-center" style={{ marginTop: '15px'}}>
                             <div>
                                 {(this.state.loading) ? <div className="d-flex justify-content-center" style={{ marginBottom: '7px'}}>
@@ -49,7 +53,7 @@ class EditProfileScreen extends Component {
                                     <Button style={{width: '100%'}} variant="contained" color="primary" onClick={() => this.editUser()}>Edit</Button>
                                 </div>
                                 <div className="d-flex justify-content-center" style={{ marginTop: '7px'}}>
-                                    <Button style={{width: '100%'}} variant="contained" onClick={() => this.changePage('/profilePage')}>Back</Button>
+                                    <Button style={{width: '100%'}} variant="contained" onClick={() => this.handleBackButton()}>Back</Button>
                                 </div>
                             </div>
                         </div>
@@ -62,10 +66,22 @@ class EditProfileScreen extends Component {
     editUser = async () => {
         this.setState({loading: true})
         var user = this.state.user;
-        var updated_user = await user.editUser(this.state.first_name, this.state.last_name, this.state.email, user.password)
+        var updated_user = await user.editUser(this.state.first_name, this.state.last_name, this.state.email, user.password, user.account_type, user.party_id, this.state.bio)
         userStorage.storeUser(updated_user)
         this.setState({loading: false})
-        this.changePage('/profilePage')
+                if (this.state.user.account_type === 0) {
+            this.changePage('/home');
+        } else if (this.state.user.account_type === 1) {
+            this.changePage('/home-dm')
+        }
+    }
+
+    handleBackButton = () => {
+        if (this.state.user.account_type === 0) {
+            this.changePage('/home');
+        } else if (this.state.user.account_type === 1) {
+            this.changePage('/home-dm')
+        }
     }
 
     changePage = (page) => {

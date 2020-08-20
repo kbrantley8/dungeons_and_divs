@@ -8,12 +8,13 @@ import partyService from "../Backend/services/partyService"
 import userService from "../Backend/services/userService"
 import NewCharacterSheetComp from "../Components/NewCharacterSheetComp"
 import ChatWidget from "../Components/ChatWidget"
+import { Widget } from 'react-chat-widget';
 import "../Style/Inside.css";
 import CharacterSheetEdit from "../Components/CharacterSheetEdit"
+import NewParty from "../Components/NewParty"
+import ExistingParty from "../Components/ExistingParty"
 
-// import $ from 'jquery'
-
-class UserHomeScreen extends Component {
+class HomeDM extends Component {
 
     constructor(props) {
         super(props);
@@ -130,17 +131,9 @@ class UserHomeScreen extends Component {
                         {(this.state.main_tab_index === 1) ? 
                             <div>
                                 {(this.state.user.party_id) ? 
-                                    <div className="col-md-12 row d-flex justify-content-center" style={{ margin: '25px 0' }}>
-                                        <div style={{ border: '1px solid black', borderRadius: '10px', padding: '25px', width: '75%' }}>
-                                            <Typography align="center">Party Name: {this.state.party.name}</Typography>
-                                            <Typography align="center">Number of Members: {this.state.party.members.length}</Typography>
-                                            <div className="d-flex justify-content-center" style={{ marginTop: '15px' }}>
-                                                <Button style={{width: '50%'}} variant="contained" color="secondary" onClick={() => this.leaveParty()}>Leave Party</Button> 
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <ExistingParty history={this.props.history} user={this.state.user} party={this.state.party} />
                                 :
-                                <Typography color="error" align="center" style={{ marginTop: '15px' }}>You are not a member of a party</Typography>
+                                    <NewParty user={this.state.user}></NewParty>
                                 }
                             </div>
                         : null}
@@ -247,7 +240,7 @@ class UserHomeScreen extends Component {
         } else {
             new_tab_id = 0;
         }
-        this.setState({ sheets: new_sheets, character_sheet_tab_index: new_tab_id })
+        this.setState({ sheets: new_sheets, character_sheet_tab_index: new_tab_id, user: userStorage.getUser() })
     }
 
     generateCharacterSheet = () => {
@@ -299,21 +292,6 @@ class UserHomeScreen extends Component {
             </div>
         )
         return tabs;
-    }
-
-    leaveParty = async () => {
-        this.setState({ loading: true })
-        var user = this.state.user;
-        var data = [
-            user.id
-        ]
-        var data_user = {
-            party_id: ""
-        }
-        var user = await userService.editUser(user.id, data_user)
-        userStorage.storeUser(user);
-        var party = await partyService.removeMember(this.state.party.id, data)
-        this.setState({ party: party, loading: false, user: userStorage.getUser() })
     }
     
     handleAddCharacterSheetClick = (ind) => {
@@ -388,6 +366,6 @@ class UserHomeScreen extends Component {
         this.props.history.push(page)
     }
 }
-UserHomeScreen.contextType = AppContext;
+HomeDM.contextType = AppContext;
 
-export default UserHomeScreen
+export default HomeDM

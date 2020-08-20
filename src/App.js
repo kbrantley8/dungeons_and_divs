@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Provider as AppProvider } from "./context/appContext";
 
 class App extends Component {
+    
     render() {return (
         <AppProvider>
             <div>
