@@ -77,7 +77,7 @@ class CharacterSheetEdit extends Component {
                         <TextField style={{width: '100%'}} required variant="outlined" id="race" type="text" label="Race" value={this.state.race} onChange={(e) => this.setState({ race: e.target.value })}></TextField>
                     </div>
                     <div style={{ marginTop: '15px'}}>
-                        <TextField style={{width: '100%'}} required variant="outlined" id="class_1" type="text" label="Class 1" value={this.state.class_1.name} onChange={(e) => this.setState({ class_1: { name: e.target.value, level: this.state.class_1.level }})}></TextField>
+                        <TextField style={{width: '50%'}} required variant="outlined" id="class_1" type="text" label="Class 1" value={this.state.class_1.name} onChange={(e) => this.setState({ class_1: { name: e.target.value, level: this.state.class_1.level }})}></TextField>
                     </div>
                     <div className="d-flex justify-content-center" style={{ marginTop: '15px'}}>
                         <FormControl variant="filled" style={{width: '75%'}}>
@@ -187,7 +187,7 @@ class CharacterSheetEdit extends Component {
                         </div>
                     </div>
                 </div>
-                <Fab variant="extended" color="secondary" style={{ position: 'fixed', right: '17%', bottom: '100px', zIndex: '10' }} onClick={() => this.editCharacterSheet()}>
+                <Fab variant="extended" color="secondary" style={{ position: 'fixed', right: '12%', bottom: '100px', zIndex: '10' }} onClick={() => this.editCharacterSheet()}>
                     Update Character
                 </Fab>
                 <div className="col-md-12 d-flex justify-content-center" style={{ marginTop: '15px' }}>

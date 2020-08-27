@@ -33,6 +33,11 @@ class EditProfileScreen extends Component {
     }
 
     render() {
+        if (this.state.loading) {
+            return  <div className="d-flex justify-content-center" style={{ marginTop: '50%'}}>
+                        <CircularProgress />
+                    </div> 
+        }
         return (
             <div className="col-md-12">
                 <div className="d-flex justify-content-center" style={{ marginTop: '150px'}}>

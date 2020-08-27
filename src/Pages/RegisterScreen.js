@@ -34,16 +34,16 @@ class RegisterScreen extends Component {
                         </div>
                         <Typography style={{ fontWeight: 'bold', fontSize: '30px', margin: '15px 0' }} align="center">Register</Typography>
                         <div>
-                            <TextField style={{width: '100%'}} required variant="outlined" id="first_name" type="text" label="First Name" value={this.state.first_name} onChange={(e) => this.setState({ first_name: e.target.value })}></TextField>
+                            <TextField helperText={this.state.first_name_error} error={(this.state.first_name_error !== "")} style={{width: '100%'}} required variant="outlined" id="first_name" type="text" label="First Name" value={this.state.first_name} onChange={(e) => this.setState({ first_name: e.target.value })}></TextField>
                         </div>
                         <div style={{ marginTop: '7px'}}>
-                            <TextField style={{width: '100%'}} required variant="outlined" id="last_name" type="text" label="Last Name" value={this.state.last_name} onChange={(e) => this.setState({ last_name: e.target.value })}></TextField>
+                            <TextField helperText={this.state.last_name_error} error={(this.state.last_name_error !== "")} style={{width: '100%'}} required variant="outlined" id="last_name" type="text" label="Last Name" value={this.state.last_name} onChange={(e) => this.setState({ last_name: e.target.value })}></TextField>
                         </div>
                         <div style={{ marginTop: '7px'}}>
-                            <TextField style={{width: '100%'}} required variant="outlined" id="email" type="email" label="Email" helperText={this.state.email_error} error={(this.state.email_error !== '')} value={this.state.email} onChange={(e) => this.setState({ email: e.target.value })}></TextField>
+                            <TextField helperText={this.state.email_error} error={(this.state.email_error !== "")} style={{width: '100%'}} required variant="outlined" id="email" type="email" label="Email" helperText={this.state.email_error} error={(this.state.email_error !== '')} value={this.state.email} onChange={(e) => this.setState({ email: e.target.value })}></TextField>
                         </div>
                         <div style={{ marginTop: '7px'}}>
-                            <TextField style={{width: '100%'}} required variant="outlined" id="password" type="password" label="Password" value={this.state.password} onChange={(e) => this.setState({ password: e.target.value })}></TextField>
+                            <TextField helperText={this.state.password_error} error={(this.state.password_error !== "")} style={{width: '100%'}} required variant="outlined" id="password" type="password" label="Password" value={this.state.password} onChange={(e) => this.setState({ password: e.target.value })}></TextField>
                         </div>
                         <div className="d-flex justify-content-center" style={{ marginTop: '7px'}}>
                             <FormControl variant="filled" style={{width: '75%'}}>
@@ -77,26 +77,57 @@ class RegisterScreen extends Component {
         );
     }
 
+    checkInputsForValues = () => {
+        var valid = true;
+        if (!this.state.email) {
+            this.setState({ email_error: "Please provide an email"})
+            valid = false;
+        } else {
+            this.setState({ email_error: ""})
+        }
+        if (!this.state.first_name) {
+            this.setState({ first_name_error: "Please provide a first name"})
+            valid = false;
+        } else {
+            this.setState({ first_name_error: ""})
+        }
+        if (!this.state.last_name) {
+            this.setState({ last_name_error: "Please provide a last name"})
+            valid = false;
+        } else {
+            this.setState({ last_name_error: ""})
+        }
+        if (!this.state.password_error) {
+            this.setState({ password_error: "Please provide a password"})
+            valid = false;
+        } else {
+            this.setState({ password_error: ""})
+        }
+        return valid
+    }
+
     registerUser = async () => {
         this.setState({ loading: true })
-        var first_name = this.state.first_name;
-        var last_name = this.state.last_name;
-        var email = this.state.email;
-        var password = this.state.password;
-        var account_type = this.state.account_type;
-        await this.context.registerUser(first_name, last_name, email, password, account_type)
-        // console.log(this.context.state.register_error)
-        if (this.context.state.registration_err_msg) {
-            if (this.context.state.registration_err_msg.status === 422) {
-                this.setState({ email_error: "Email already exists! Try a new one or try logging in!"})
-                this.setState({ loading: false})
-                return;
+        if (this.checkInputsForValues()) {
+            var first_name = this.state.first_name;
+            var last_name = this.state.last_name;
+            var email = this.state.email;
+            var password = this.state.password;
+            var account_type = this.state.account_type;
+            await this.context.registerUser(first_name, last_name, email, password, account_type)
+            // console.log(this.context.state.register_error)
+            if (this.context.state.registration_err_msg) {
+                if (this.context.state.registration_err_msg.status === 422) {
+                    this.setState({ email_error: "Email already exists! Try a new one or try logging in!"})
+                    this.setState({ loading: false})
+                    return;
+                }
             }
-        }
-        if (account_type === 0) {
-            this.changePage('/home');
-        } else if (account_type === 1) {
-            this.changePage('/home-dm')
+            if (account_type === 0) {
+                this.changePage('/home');
+            } else if (account_type === 1) {
+                this.changePage('/home-dm')
+            }
         }
         this.setState({ loading: false })
     }

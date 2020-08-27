@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import '../Style/WelcomeScreen.css'
-import { TextField, Button, Typography, CircularProgress, InputAdornment } from '@material-ui/core';
+import { TextField, Button, Typography, CircularProgress, InputAdornment, Switch } from '@material-ui/core';
 import { Context as AppContext } from "../context/appContext";
 import characterSheetService from "../Backend/services/characterSheetService"
 import userStorage from "../Backend/localStorage/userStorage";
@@ -23,17 +23,18 @@ class ChatWidget extends Component {
             messages: [],
             members: [],
             update: false,
-            messagesToShow: []
+            messagesToShow: [],
+            allowSecondUpdate: false
         }
     }
 
     async componentDidMount() {
-        // this.secondUpdate();
-        // this.updateMessagesAndUsers();
-        // var temp_this = this;
-        // window.setTimeout(function() {
-        //     temp_this.scrollToBottom()
-        // }, 1000)
+        this.secondUpdate(); //initially allow for seconds update
+        this.updateMessagesAndUsers(); // auto update once for messages/users
+        var temp_this = this;
+        window.setTimeout(function() {
+            temp_this.scrollToBottom()
+        }, 1000)
     }
 
     updateMessagesAndUsers = async () => {
@@ -56,13 +57,17 @@ class ChatWidget extends Component {
     }
 
     secondUpdate = async () => {
-        var temp_this = this;
-        // await temp_this.updateMessagesAndUsers()
-        // temp_this.generateMessages()
-        // this.interval = setInterval(async function() {
-        //     await temp_this.updateMessagesAndUsers()
-        //     temp_this.generateMessages()
-        // }, 1000)
+        if (this.state.allowSecondUpdate) {
+            var temp_this = this;
+            await temp_this.updateMessagesAndUsers()
+            temp_this.generateMessages()
+            this.interval = setInterval(async function() {
+                await temp_this.updateMessagesAndUsers()
+                temp_this.generateMessages()
+            }, 1000)
+        } else {
+            clearInterval(this.interval);
+        }
     }
 
     componentWillUnmount() {
@@ -72,8 +77,21 @@ class ChatWidget extends Component {
     render() {
         return (
             <div style={{ position: 'fixed', bottom: '0px', left: '0px', width: '100%', maxHeight: '400px', backgroundColor: 'lightgreen', cursor: 'pointer', zIndex: '100'}}>
-                <div onClick={() => this.handleOpenChatWindow()}>    
-                    <Typography style={{ marginTop: '7px', marginBottom: '7px' }} variant="h5" align="center">{this.state.party.name} Chat</Typography>
+                <div>    
+                    <Typography style={{ marginTop: '7px', marginBottom: '7px' }} variant="h5" align="center" onClick={() => this.handleOpenChatWindow()}>{this.state.party.name} Chat</Typography>
+                    <div className="d-flex justify-content-end" style={{ position: 'absolute', top: '6px', right: '32px' }}>
+                        <Typography style={{ display: 'flex', alignItems: 'center' }}>Live Status: </Typography>
+                        <Switch
+                            checked={this.state.allowSecondUpdate}
+                            onChange={
+                                () => this.setState({ allowSecondUpdate: !this.state.allowSecondUpdate }, function () {
+                                    this.secondUpdate();
+                                })
+                            }
+                            color="primary"
+                            name="checkedB"
+                        />
+                    </div>
                 </div>
                 {(this.state.open) ? 
                     <div style={{ backgroundColor: 'lightgreen', marginBottom: '50px' }}>

@@ -69,6 +69,11 @@ class UserHomeScreen extends Component {
             borderBottom: (this.state.main_tab_index == 1) ? "1px solid white" : "1px solid black",
             cursor: 'pointer'
         }
+        if (this.state.loading) {
+            return  <div className="d-flex justify-content-center" style={{ marginTop: '50%'}}>
+                        <CircularProgress />
+                    </div> 
+        }
         return (
             <div className="" style={{ padding: '100px 0 0 0' }}>
                 <div style={{ position: 'fixed', top: '0', left: '0', width: '100%', height: '5%', backgroundColor: 'black', zIndex: '1000' }}></div>
