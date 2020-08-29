@@ -13,6 +13,7 @@ import "../Style/Inside.css";
 import CharacterSheetEdit from "../Components/CharacterSheetEdit"
 import NewParty from "../Components/NewParty"
 import ExistingParty from "../Components/ExistingParty"
+import DividerText from "../Components/DividerText"
 
 class HomeDM extends Component {
 
@@ -35,17 +36,22 @@ class HomeDM extends Component {
 
     async componentDidMount() {
         this.setState({ loading: true })
+        var new_user = await userService.getUserById(this.state.user.id);
+        userStorage.storeUser(new_user)
         var sheets = await characterSheetService.getUsersCharacterSheetsById(this.state.user.id)
-        if (this.state.user.party_id) {
-            var party = await partyService.getPartyById(this.state.user.party_id)
-            if (this.state.user.account_type === 1) {
-                var party_members = await partyService.getPartyMembersById(this.state.user.party_id)
+        var parties = {}
+        var parties_id_arr = []
+        if (this.state.user.party_id !== {}) {
+            for (var party_id in this.state.user.party_id) {
+                var party = await partyService.getPartyById(party_id)
+                parties[party_id] = party
+                parties_id_arr.push(party_id)
             }
         }
-        if (party) {
-            this.setState({ sheets: sheets, loading: false, party: party, party_members: party_members, newParty: false, showPartyInput: false })
+        if (parties !== {}) {
+            this.setState({ user: userStorage.getUser(), sheets: sheets, loading: false, parties: parties, parties_id_arr: parties_id_arr })
         } else {
-            this.setState({ sheets: sheets, loading: false, party: {}, party_members: party_members, newParty: true, showPartyInput: false})
+            this.setState({ user: userStorage.getUser(), sheets: sheets, loading: false, parties: {}, parties_id_arr: [] })
         }
     }
 
@@ -123,15 +129,17 @@ class HomeDM extends Component {
                             <div style={{ borderBottom: '1px solid black', height: '34px' }}>
                                 {this.generateCharacterSheetTabs()}
                             </div>
-                            <div style={{ marginTop: '25px', padding: "5px 25px 25px 25px", height: '65vh', overflowY: 'auto' }}>
+                            <div style={{ marginTop: '25px', padding: "5px 25px 25px 25px", height: '67vh', overflowY: 'auto' }}>
                                 {this.generateCharacterSheet()}
                             </div>
                         </div>
                         : null}
                         {(this.state.main_tab_index === 1) ? 
                             <div>
-                                {(this.state.user.party_id) ? 
-                                    <ExistingParty history={this.props.history} user={this.state.user} party={this.state.party} />
+                                {(this.state.parties !== {}) ? 
+                                    <div style={{ padding: "5px 25px 25px 0", height: '73vh', overflowY: 'auto' }}>
+                                        {this.generateParties()}
+                                    </div>
                                 :
                                     <NewParty user={this.state.user}></NewParty>
                                 }
@@ -139,91 +147,41 @@ class HomeDM extends Component {
                         : null}
                     </div>
                 </div>
-
-                {/* <div className="col-md-9" style={{ paddingLeft: '0'}}>
-                    <div style={{ width: '100%', borderBottom: '1px solid black' }}> 
-                        <div style={{ display: 'inline-block', marginLeft: '15px' }}>
-                            <Typography 
-                                variant="h4"
-                                style={{}}
-                            >Character Sheets</Typography>
-                        </div>
-                        <Typography 
-                            variant="h4"
-                            style={{ paddingLeft: '16px', display: 'inline-block' }}
-                        >Party</Typography>
-                    </div>
-                </div> */}
-                {/* <div className="d-flex justify-content-center">
-                    <div style={{ padding: "15px", border: "1px solid lightblue", borderRadius: '10px', width: '80%'}}>
-                        <div className="d-flex justify-content-center" style={{ marginTop: '15px'}}>
-                            <div>
-                                <div className="d-flex justify-content-center">
-                                    <Button style={{width: '100%'}} variant="contained" onClick={() => this.changePage('/profilePage')}>Profile Page</Button>
-                                </div>
-                                <div className="d-flex justify-content-center" style={{ marginTop: '7px' }}>
-                                    <Button style={{width: '100%'}} variant="contained" onClick={() => this.changePage('/createCharacterSheet')}>New Character Sheet</Button>
-                                </div>
-                            </div>
-                        </div>
-                        {(this.state.loading) ? <div className="d-flex justify-content-center" style={{ marginTop: '15px', padding: '5px'}}>
-                            <div className="d-flex justify-content-center" style={{ marginBottom: '7px'}}>
-                                <CircularProgress />
-                            </div>
-                        </div> : null}
-                        <div className="d-flex justify-content-center" style={{ marginTop: '15px', padding: '5px'}}>
-                            {this.generatePreviewSheets()}
-                        </div>
-                        {((this.state.user.account_type === 1) && (this.state.newParty) && (!this.state.showPartyInput)) ? 
-                            <div className="d-flex justify-content-center" style={{ marginTop: '15px'}}>
-                                <div>
-                                    <div className="d-flex justify-content-center">
-                                        <Button style={{width: '100%'}} variant="contained" onClick={() => this.setState({ showPartyInput: true })}>Create Party</Button>
-                                    </div>
-                                </div>
-                            </div> : null
-                        }
-                        {((this.state.user.account_type === 1) && (this.state.newParty) && (this.state.showPartyInput)) ? 
-                            <div>
-                                <div className="d-flex justify-content-center" style={{ marginTop: '15px'}}>
-                                    <TextField helperText={this.state.party_error} error={(this.state.party_error !== "")} style={{width: '50%'}} variant="outlined" id="party_name" type="text" label="Party Name" value={this.state.party_name} onChange={(e) => this.setState({ party_name: e.target.value })}></TextField>
-                                </div>
-                                <div className="d-flex justify-content-center" style={{ marginTop: '7px' }}>
-                                    <Button variant="contained" onClick={() => this.createParty()}>Create Party</Button>
-                                </div>
-                            </div>
-                            : null
-                        }
-                        {((this.state.user.account_type === 1) && (this.state.user.party_id)) ? 
-                            <div className="d-flex justify-content-center" style={{ marginTop: '15px'}}>
-                                <div>    
-                                    <div className="d-flex justify-content-center" style={{ marginTop: '7px' }}>
-                                        <Typography variant="h5" align="center" style={{ cursor: 'pointer', border: '1px solid lightblue', borderRadius: '5px', padding: '5px' }} onClick={() => this.handlePartyClick()}>
-                                            Party Name: {this.state.party.name} 
-                                        </Typography>
-                                    </div>
-                                    <div className="d-flex justify-content-center" style={{ marginTop: '7px' }}>
-                                        <Button style={{width: '100%'}} variant="contained" color="secondary" onClick={() => this.deleteParty()}>Delete Party</Button>
-                                    </div>
-                                </div>
-                            </div>
-                            : null
-                        } */}
-                        {/* {((this.state.user.account_type === 1) && (this.state.party)) ? : null} */}
-
-                        {/* <div className="d-flex justify-content-center" style={{ marginTop: '15px'}}>
-                            <div>
-                                <div className="d-flex justify-content-center" style={{ marginTop: '7px' }}>
-                                    <Button style={{width: '100%'}} variant="contained" color="secondary" onClick={() => this.logout()}>Logout</Button>
-                                </div>
-                            </div>
-                        </div>
-                    </div> */}
-                {/* </div> */}
-                {(this.state.party.id) ? <ChatWidget party={this.state.party} user={this.state.user}/> : null}
+                {/* {(this.state.party.id) ? <ChatWidget party={this.state.party} user={this.state.user}/> : null} */}
                 
             </div>
         );
+    }
+
+    generateParties = () => {
+        if (this.state.parties !== {} && this.state.parties_id_arr.length !== 0) {
+            var parties = this.state.parties_id_arr.map((val, ind) => {
+                return (
+                    <ExistingParty key={val} history={this.props.history} user={this.state.user} party={this.state.parties[val]} />
+                )
+            })
+        }
+        parties.push(<DividerText lineClassName="col-md-5" textClassName="col-md-2" text="or" />)
+        parties.push(<NewParty key={'new_party'} callback={this.updateUserAndParties} user={this.state.user}></NewParty>)
+        return parties
+    }
+
+    updateUserAndParties = async () => {
+        var user = userStorage.getUser();
+        var parties = {}
+        var parties_id_arr = []
+        if (user.party_id !== {}) {
+            for (var party_id in this.state.user.party_id) {
+                var party = await partyService.getPartyById(party_id)
+                parties[party_id] = party
+                parties_id_arr.push(party_id)
+            }
+        }
+        if (parties !== {}) {
+            this.setState({ user: user, parties: parties, parties_id_arr: parties_id_arr })
+        } else {
+            this.setState({ user: user, parties: {}, parties_id_arr: [] })
+        }
     }
 
     reloadSheets = async (sheet_id = undefined) => {

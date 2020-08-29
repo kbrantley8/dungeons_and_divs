@@ -8,6 +8,7 @@ import partyService from "../Backend/services/partyService"
 import userService from "../Backend/services/userService"
 import NewCharacterSheetComp from "../Components/NewCharacterSheetComp"
 import ChatWidget from "../Components/ChatWidget"
+import UserPartyTab from "../Components/UserPartyTab"
 import "../Style/Inside.css";
 import CharacterSheetEdit from "../Components/CharacterSheetEdit"
 
@@ -23,8 +24,8 @@ class UserHomeScreen extends Component {
             loading: false,
             newParty: true,
             showPartyInput: false,
-            party_name: "",
-            party: {},
+            parties_id_arr: [],
+            parties: {},
             party_error: "",
             sheets: [],
             main_tab_index: 0,
@@ -34,17 +35,22 @@ class UserHomeScreen extends Component {
 
     async componentDidMount() {
         this.setState({ loading: true })
+        var new_user = await userService.getUserById(this.state.user.id);
+        userStorage.storeUser(new_user)
         var sheets = await characterSheetService.getUsersCharacterSheetsById(this.state.user.id)
-        if (this.state.user.party_id) {
-            var party = await partyService.getPartyById(this.state.user.party_id)
-            if (this.state.user.account_type === 1) {
-                var party_members = await partyService.getPartyMembersById(this.state.user.party_id)
+        var parties = {}
+        var parties_id_arr = []
+        if (this.state.user.party_id !== {}) {
+            for (var party_id in this.state.user.party_id) {
+                var party = await partyService.getPartyById(party_id)
+                parties[party_id] = party
+                parties_id_arr.push(party_id)
             }
         }
-        if (party) {
-            this.setState({ sheets: sheets, loading: false, party: party, party_members: party_members, newParty: false, showPartyInput: false })
+        if (parties !== {}) {
+            this.setState({ user: userStorage.getUser(), sheets: sheets, loading: false, parties: parties, parties_id_arr: parties_id_arr })
         } else {
-            this.setState({ sheets: sheets, loading: false, party: {}, party_members: party_members, newParty: true, showPartyInput: false})
+            this.setState({ user: userStorage.getUser(), sheets: sheets, loading: false, parties: {}, parties_id_arr: [] })
         }
     }
 
@@ -134,18 +140,12 @@ class UserHomeScreen extends Component {
                         : null}
                         {(this.state.main_tab_index === 1) ? 
                             <div>
-                                {(this.state.user.party_id) ? 
-                                    <div className="col-md-12 row d-flex justify-content-center" style={{ margin: '25px 0' }}>
-                                        <div style={{ border: '1px solid black', borderRadius: '10px', padding: '25px', width: '75%' }}>
-                                            <Typography align="center">Party Name: {this.state.party.name}</Typography>
-                                            <Typography align="center">Number of Members: {this.state.party.members.length}</Typography>
-                                            <div className="d-flex justify-content-center" style={{ marginTop: '15px' }}>
-                                                <Button style={{width: '50%'}} variant="contained" color="secondary" onClick={() => this.leaveParty()}>Leave Party</Button> 
-                                            </div>
-                                        </div>
+                                {(this.state.parties !== {}) ? 
+                                    <div>
+                                        {this.generateParties()}
                                     </div>
                                 :
-                                <Typography color="error" align="center" style={{ marginTop: '15px' }}>You are not a member of a party</Typography>
+                                    <Typography color="error" align="center" style={{ marginTop: '15px' }}>You are not a member of a party</Typography>
                                 }
                             </div>
                         : null}
@@ -232,7 +232,7 @@ class UserHomeScreen extends Component {
                         </div>
                     </div> */}
                 {/* </div> */}
-                {(this.state.party.id) ? <ChatWidget party={this.state.party} user={this.state.user}/> : null}
+                {/* {(this.state.parties ) ? <ChatWidget party={this.state.party} user={this.state.user}/> : null} */}
                 
             </div>
         );
@@ -253,6 +253,35 @@ class UserHomeScreen extends Component {
             new_tab_id = 0;
         }
         this.setState({ sheets: new_sheets, character_sheet_tab_index: new_tab_id })
+    }
+
+    generateParties = () => {
+        if (this.state.parties !== {} && this.state.parties_id_arr.length !== 0) {
+            var parties = this.state.parties_id_arr.map((val, ind) => {
+                return (
+                    <UserPartyTab key={val} user={this.state.user} party={this.state.parties[val]} callback={this.updateUserAndParties}></UserPartyTab>
+                )
+            })
+        }
+        return parties
+    }
+
+    updateUserAndParties = async () => {
+        var user = userStorage.getUser();
+        var parties = {}
+        var parties_id_arr = []
+        if (user.party_id !== {}) {
+            for (var party_id in this.state.user.party_id) {
+                var party = await partyService.getPartyById(party_id)
+                parties[party_id] = party
+                parties_id_arr.push(party_id)
+            }
+        }
+        if (parties !== {}) {
+            this.setState({ user: user, parties: parties, parties_id_arr: parties_id_arr })
+        } else {
+            this.setState({ user: user, parties: {}, parties_id_arr: [] })
+        }
     }
 
     generateCharacterSheet = () => {
@@ -304,21 +333,6 @@ class UserHomeScreen extends Component {
             </div>
         )
         return tabs;
-    }
-
-    leaveParty = async () => {
-        this.setState({ loading: true })
-        var user = this.state.user;
-        var data = [
-            user.id
-        ]
-        var data_user = {
-            party_id: ""
-        }
-        var user = await userService.editUser(user.id, data_user)
-        userStorage.storeUser(user);
-        var party = await partyService.removeMember(this.state.party.id, data)
-        this.setState({ party: party, loading: false, user: userStorage.getUser() })
     }
     
     handleAddCharacterSheetClick = (ind) => {

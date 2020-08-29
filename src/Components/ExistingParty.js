@@ -14,7 +14,6 @@ class ExistingParty extends Component {
             party: this.props.party
         }
 
-
     }
 
     render() {
@@ -26,6 +25,9 @@ class ExistingParty extends Component {
                     <div className="d-flex justify-content-center" style={{ marginTop: '15px' }}>
                         <Button style={{width: '50%'}} variant="contained" color="primary" onClick={() => this.updateMembers()}>Update Members</Button> 
                     </div>
+                    <div className="d-flex justify-content-center" style={{ marginTop: '15px' }}>
+                        <Button style={{width: '50%'}} variant="contained" color="secondary" onClick={() => this.deleteParty()}>Delete Party</Button> 
+                    </div>
                 </div>
             </div>
         )
@@ -33,6 +35,26 @@ class ExistingParty extends Component {
 
     updateMembers = async () => {
         this.props.history.push({ pathname: '/party', state: { party: this.state.party }})
+    }
+
+    deleteParty = async () => {
+        var party_members = await partyService.getPartyMembersById(this.state.party.id);
+        party_members.forEach(async (val, ind) => {
+            var user = val;
+            console.log(user)
+            delete user.party_id[this.state.party.id]
+            var data_user = {
+                party_id: user.party_id
+            }
+            console.log(user)
+            // var user_updated = await userService.editUser(val.id, data_user)
+        })
+        // var party = await partyService.deletePartyById(this.state.party.id)
+        // var data = {
+        //     party_id: ""
+        // }
+        // var user = await userService.editUser(this.state.user.id, data)
+        // userStorage.storeUser(user)
     }
 }
 
