@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import '../Style/WelcomeScreen.css'
-import { TextField, Button, Typography, CircularProgress, InputAdornment, Switch } from '@material-ui/core';
+import { TextField, Button, Typography, FormControl, InputLabel, Select, MenuItem, Switch, CircularProgress } from '@material-ui/core';
 import { Context as AppContext } from "../context/appContext";
 import characterSheetService from "../Backend/services/characterSheetService"
 import userStorage from "../Backend/localStorage/userStorage";
@@ -17,38 +17,30 @@ class ChatWidget extends Component {
 
         this.state = {
             user: this.props.user,
-            party: this.props.party,
+            party: this.props.parties[Object.keys(this.props.parties)[0]],
+            parties: this.props.parties,
             open: false,
             message: '',
             messages: [],
             members: [],
             update: false,
             messagesToShow: [],
-            allowSecondUpdate: false
+            allowSecondUpdate: false,
+            loading: true
         }
     }
 
-    async componentDidMount() {
-        this.secondUpdate(); //initially allow for seconds update
-        this.updateMessagesAndUsers(); // auto update once for messages/users
-        var temp_this = this;
-        window.setTimeout(function() {
-            temp_this.scrollToBottom()
-        }, 1000)
-    }
+    async componentDidMount() {}
 
     updateMessagesAndUsers = async () => {
         var messages = await messageService.getPartyMessages(this.state.party.id)
         var party_members = await partyService.getPartyMembersById(this.state.party.id)
-        if (messages.length !== this.state.messagesToShow.length) {
-            this.scrollToBottom()
-        }
         this.setState({ messages: messages, members: party_members })
         this.generateMessages()
     }
 
     scrollToBottom = () => {
-        if (this.state.open) {
+        if (this.state.open && document.getElementById("messages")) {
             window.setTimeout(function() {
                 var objDiv = document.getElementById("messages");
                 objDiv.scrollTop = objDiv.scrollHeight;
@@ -76,9 +68,9 @@ class ChatWidget extends Component {
 
     render() {
         return (
-            <div style={{ position: 'fixed', bottom: '0px', left: '0px', width: '100%', maxHeight: '410px', backgroundColor: 'lightgreen', cursor: 'pointer', zIndex: '100'}}>
+            <div style={{ position: 'fixed', bottom: '0px', left: '0px', width: '100%', maxHeight: '410px', backgroundColor: 'lightblue', cursor: 'pointer', zIndex: '100'}}>
                 <div>    
-                    <Typography style={{ marginTop: '7px', marginBottom: '7px' }} variant="h5" align="center" onClick={() => this.handleOpenChatWindow()}>{this.state.party.name} Chat</Typography>
+                    <Typography style={{ marginTop: '7px', marginBottom: '7px' }} variant="h5" align="center" onClick={() => this.handleOpenChatWindow()}>Party Chat</Typography>
                     <div className="d-flex justify-content-end" style={{ position: 'absolute', top: '6px', right: '32px' }}>
                         <Typography style={{ display: 'flex', alignItems: 'center' }}>Live Status: </Typography>
                         <Switch
@@ -92,12 +84,36 @@ class ChatWidget extends Component {
                             name="checkedB"
                         />
                     </div>
+                    <div className="d-flex justify-content-start" style={{ position: 'absolute', top: '6px', left: '32px', width: '25%' }}>
+                        <FormControl style={{ width: '100%' }}>
+                            <Select
+                            id="demo-simple-select-outlined"
+                            value={this.state.party.name}
+                            renderValue={() => this.renderValue(this.state.party.name)}
+                            onChange={(e) => this.handleChangeParty(e)}
+                            >
+                                {
+                                    Object.keys(this.props.parties).map((val, ind) => {
+                                        return (
+                                            <MenuItem key={val} value={val}>{this.props.parties[val].name}</MenuItem>
+                                        )
+                                    })
+                                }
+                            </Select>
+                        </FormControl>
+                    </div>
                 </div>
                 {(this.state.open) ? 
-                    <div style={{ backgroundColor: 'lightgreen', marginBottom: '69px' }}>
-                        <div style={{ overflowY: "scroll", height: '290px'}} id="messages">
-                            {this.state.messagesToShow}
-                        </div>
+                    <div style={{ backgroundColor: 'lightblue', marginBottom: '69px' }}>
+                        {(this.state.loading) ?
+                            <div className="d-flex justify-content-center" style={{ height: '290px', }}>
+                                <CircularProgress />
+                            </div>
+                            :
+                            <div style={{ overflowY: "scroll", height: '290px', overflow: 'auto'}} id="messages">
+                                {this.state.messagesToShow}
+                            </div>
+                        }
                         <div style={{ padding: '15px', position: 'absolute', width: '100%', bottom: '0', paddingRight: '7px' }}>
                             <TextField onKeyPress={(e) => this.handleEnterPress(e)} style={{width: '100%'}} id="message" type="text" label="Message" value={this.state.message} onChange={(e) => this.setState({ message: e.target.value })}></TextField>
                         </div>
@@ -105,6 +121,17 @@ class ChatWidget extends Component {
                 : null }
             </div>
         );
+    }
+
+    handleChangeParty = async (e) => {
+        var new_party = this.state.parties[e.target.value]
+        this.setState({ party: new_party, loading: true }, async () => {
+            await this.updateMessagesAndUsers()
+        })
+    }
+
+    renderValue = (value) => {
+        return value;
     }
 
     handleEnterPress = (event) => {
@@ -129,7 +156,7 @@ class ChatWidget extends Component {
         if (messages.length === 0) {
             messages = <Typography color="error" align="center">There are no messages in this party chat</Typography>
         }
-        this.setState({ messagesToShow: messages })
+        this.setState({ messagesToShow: messages, loading: false }, () => {this.scrollToBottom()})
     }
 
     handleSendingMessage = async () => {

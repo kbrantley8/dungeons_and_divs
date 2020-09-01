@@ -16,6 +16,8 @@ class NewParty extends Component {
             loading: false
         }
 
+        this.updateUserAndParties = this.props.callback
+
 
     }
 
@@ -39,10 +41,12 @@ class NewParty extends Component {
 
     createParty = async () => {
         this.setState({ loading: true })
+        var user = this.state.user;
         var name = this.state.party_name;
         var party = await partyService.createParty(name, this.state.user.id)
+        user.party_id[party.id] = party.id;
         var data = {
-            party_id: party.id
+            party_id: user.party_id
         }
         if (party.status === 422) {
             this.setState({ loading: false, party_error: "Party of the same name already exists. Choose another one."})
@@ -50,7 +54,8 @@ class NewParty extends Component {
         }
         var user = await userService.editUser(this.state.user.id, data)
         userStorage.storeUser(user)
-        this.setState({ loading: false })
+        this.updateUserAndParties()
+        this.setState({ loading: false, party_name: "" })
     }
 }
 
