@@ -133,14 +133,14 @@ class UserHomeScreen extends Component {
                             <div style={{ borderBottom: '1px solid black', height: '34px' }}>
                                 {this.generateCharacterSheetTabs()}
                             </div>
-                            <div style={{ marginTop: '25px', padding: "5px 25px 25px 25px", height: '65vh', overflowY: 'auto' }}>
+                            <div style={{ marginTop: '25px', padding: "5px 25px 25px 25px", height: '67vh', overflowY: 'auto' }}>
                                 {this.generateCharacterSheet()}
                             </div>
                         </div>
                         : null}
                         {(this.state.main_tab_index === 1) ? 
                             <div>
-                                {(this.state.parties !== {}) ? 
+                                {(Object.keys(this.state.parties).length !== 0) ? 
                                     <div>
                                         {this.generateParties()}
                                     </div>
@@ -151,88 +151,9 @@ class UserHomeScreen extends Component {
                         : null}
                     </div>
                 </div>
-
-                {/* <div className="col-md-9" style={{ paddingLeft: '0'}}>
-                    <div style={{ width: '100%', borderBottom: '1px solid black' }}> 
-                        <div style={{ display: 'inline-block', marginLeft: '15px' }}>
-                            <Typography 
-                                variant="h4"
-                                style={{}}
-                            >Character Sheets</Typography>
-                        </div>
-                        <Typography 
-                            variant="h4"
-                            style={{ paddingLeft: '16px', display: 'inline-block' }}
-                        >Party</Typography>
-                    </div>
-                </div> */}
-                {/* <div className="d-flex justify-content-center">
-                    <div style={{ padding: "15px", border: "1px solid lightblue", borderRadius: '10px', width: '80%'}}>
-                        <div className="d-flex justify-content-center" style={{ marginTop: '15px'}}>
-                            <div>
-                                <div className="d-flex justify-content-center">
-                                    <Button style={{width: '100%'}} variant="contained" onClick={() => this.changePage('/profilePage')}>Profile Page</Button>
-                                </div>
-                                <div className="d-flex justify-content-center" style={{ marginTop: '7px' }}>
-                                    <Button style={{width: '100%'}} variant="contained" onClick={() => this.changePage('/createCharacterSheet')}>New Character Sheet</Button>
-                                </div>
-                            </div>
-                        </div>
-                        {(this.state.loading) ? <div className="d-flex justify-content-center" style={{ marginTop: '15px', padding: '5px'}}>
-                            <div className="d-flex justify-content-center" style={{ marginBottom: '7px'}}>
-                                <CircularProgress />
-                            </div>
-                        </div> : null}
-                        <div className="d-flex justify-content-center" style={{ marginTop: '15px', padding: '5px'}}>
-                            {this.generatePreviewSheets()}
-                        </div>
-                        {((this.state.user.account_type === 1) && (this.state.newParty) && (!this.state.showPartyInput)) ? 
-                            <div className="d-flex justify-content-center" style={{ marginTop: '15px'}}>
-                                <div>
-                                    <div className="d-flex justify-content-center">
-                                        <Button style={{width: '100%'}} variant="contained" onClick={() => this.setState({ showPartyInput: true })}>Create Party</Button>
-                                    </div>
-                                </div>
-                            </div> : null
-                        }
-                        {((this.state.user.account_type === 1) && (this.state.newParty) && (this.state.showPartyInput)) ? 
-                            <div>
-                                <div className="d-flex justify-content-center" style={{ marginTop: '15px'}}>
-                                    <TextField helperText={this.state.party_error} error={(this.state.party_error !== "")} style={{width: '50%'}} variant="outlined" id="party_name" type="text" label="Party Name" value={this.state.party_name} onChange={(e) => this.setState({ party_name: e.target.value })}></TextField>
-                                </div>
-                                <div className="d-flex justify-content-center" style={{ marginTop: '7px' }}>
-                                    <Button variant="contained" onClick={() => this.createParty()}>Create Party</Button>
-                                </div>
-                            </div>
-                            : null
-                        }
-                        {((this.state.user.account_type === 1) && (this.state.user.party_id)) ? 
-                            <div className="d-flex justify-content-center" style={{ marginTop: '15px'}}>
-                                <div>    
-                                    <div className="d-flex justify-content-center" style={{ marginTop: '7px' }}>
-                                        <Typography variant="h5" align="center" style={{ cursor: 'pointer', border: '1px solid lightblue', borderRadius: '5px', padding: '5px' }} onClick={() => this.handlePartyClick()}>
-                                            Party Name: {this.state.party.name} 
-                                        </Typography>
-                                    </div>
-                                    <div className="d-flex justify-content-center" style={{ marginTop: '7px' }}>
-                                        <Button style={{width: '100%'}} variant="contained" color="secondary" onClick={() => this.deleteParty()}>Delete Party</Button>
-                                    </div>
-                                </div>
-                            </div>
-                            : null
-                        } */}
-                        {/* {((this.state.user.account_type === 1) && (this.state.party)) ? : null} */}
-
-                        {/* <div className="d-flex justify-content-center" style={{ marginTop: '15px'}}>
-                            <div>
-                                <div className="d-flex justify-content-center" style={{ marginTop: '7px' }}>
-                                    <Button style={{width: '100%'}} variant="contained" color="secondary" onClick={() => this.logout()}>Logout</Button>
-                                </div>
-                            </div>
-                        </div>
-                    </div> */}
-                {/* </div> */}
-                {/* {(this.state.parties ) ? <ChatWidget party={this.state.party} user={this.state.user}/> : null} */}
+                {(Object.keys(this.state.parties).length !== 0) ? 
+                    <ChatWidget parties={this.state.parties} user={this.state.user}/>
+                : null}
                 
             </div>
         );
@@ -256,7 +177,7 @@ class UserHomeScreen extends Component {
     }
 
     generateParties = () => {
-        if (this.state.parties !== {} && this.state.parties_id_arr.length !== 0) {
+        if (Object.keys(this.state.parties).length !== 0 && this.state.parties_id_arr.length !== 0) {
             var parties = this.state.parties_id_arr.map((val, ind) => {
                 return (
                     <UserPartyTab key={val} user={this.state.user} party={this.state.parties[val]} callback={this.updateUserAndParties}></UserPartyTab>
@@ -277,6 +198,8 @@ class UserHomeScreen extends Component {
                 parties_id_arr.push(party_id)
             }
         }
+        console.log(parties)
+        console.log(user)
         if (parties !== {}) {
             this.setState({ user: user, parties: parties, parties_id_arr: parties_id_arr })
         } else {

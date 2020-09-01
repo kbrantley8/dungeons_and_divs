@@ -44,6 +44,7 @@ class UserPartyTab extends Component {
         userStorage.storeUser(user);
         var party = await partyService.removeMember(this.state.party.id, data)
         this.updatePartyAndUser()
+        window.location.reload(false);
     }
 }
 

@@ -92,9 +92,9 @@ class PartyScreen extends Component {
         var data = [
             user.id
         ]
-        var data_user = {
-            party_id: this.state.party.id
-        }
+        var party_id = user.party_id
+        party_id[this.state.party.id] = this.state.party.id
+        var data_user = { party_id }
         var user = await userService.editUser(user.id, data_user)
         var party = await partyService.addMember(this.state.party.id, data)
         var party_members = await partyService.getPartyMembersById(this.state.party.id);

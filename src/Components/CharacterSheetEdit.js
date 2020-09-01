@@ -187,7 +187,7 @@ class CharacterSheetEdit extends Component {
                         </div>
                     </div>
                 </div>
-                <Fab variant="extended" color="secondary" style={{ position: 'fixed', right: '12%', bottom: '100px', zIndex: '10' }} onClick={() => this.editCharacterSheet()}>
+                <Fab variant="extended" color="secondary" style={{ position: 'fixed', right: '8%', bottom: '100px', zIndex: '10' }} onClick={() => this.editCharacterSheet()}>
                     Update Character
                 </Fab>
                 <div className="col-md-12 d-flex justify-content-center" style={{ marginTop: '15px' }}>

@@ -76,6 +76,11 @@ class HomeDM extends Component {
             borderBottom: (this.state.main_tab_index == 1) ? "1px solid white" : "1px solid black",
             cursor: 'pointer'
         }
+        if (this.state.loading) {
+            return  <div className="d-flex justify-content-center" style={{ marginTop: '50%'}}>
+                        <CircularProgress />
+                    </div> 
+        }
         return (
             <div className="" style={{ padding: '100px 0 0 0' }}>
                 <div style={{ position: 'fixed', top: '0', left: '0', width: '100%', height: '5%', backgroundColor: 'black', zIndex: '1000' }}></div>
@@ -136,7 +141,7 @@ class HomeDM extends Component {
                         : null}
                         {(this.state.main_tab_index === 1) ? 
                             <div>
-                                {(this.state.parties !== {}) ? 
+                                {(Object.keys(this.state.parties).length !== 0) ? 
                                     <div style={{ padding: "5px 25px 25px 0", height: '73vh', overflowY: 'auto' }}>
                                         {this.generateParties()}
                                     </div>
@@ -154,14 +159,14 @@ class HomeDM extends Component {
     }
 
     generateParties = () => {
-        if (this.state.parties !== {} && this.state.parties_id_arr.length !== 0) {
+        if (Object.keys(this.state.parties).length !== 0 && this.state.parties_id_arr.length !== 0) {
             var parties = this.state.parties_id_arr.map((val, ind) => {
                 return (
                     <ExistingParty key={val} history={this.props.history} user={this.state.user} party={this.state.parties[val]} />
                 )
             })
         }
-        parties.push(<DividerText lineClassName="col-md-5" textClassName="col-md-2" text="or" />)
+        parties.push(<DividerText key={'divider'} lineClassName="col-md-5" textClassName="col-md-2" text="or" />)
         parties.push(<NewParty key={'new_party'} callback={this.updateUserAndParties} user={this.state.user}></NewParty>)
         return parties
     }
