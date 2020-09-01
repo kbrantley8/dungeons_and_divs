@@ -55,7 +55,7 @@ module.exports = class CharacterSheet {
     this.dexterity = dexterity;
     this.constitution = constitution;
     this.intelligence = intelligence;
-    this.wisdom = wisdon;
+    this.wisdom = wisdom;
     this.charisma = charisma;
     this.acrobatics = acrobatics;
     this.animal_handling = animal_handling;
@@ -133,7 +133,7 @@ module.exports = class CharacterSheet {
         dexterity: dexterity,
         constitution: constitution,
         intelligence: intelligence,
-        wisdom: wisdon,
+        wisdom: wisdom,
         charisma: charisma,
         acrobatics: acrobatics,
         animal_handling: animal_handling,
