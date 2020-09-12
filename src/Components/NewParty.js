@@ -56,6 +56,7 @@ class NewParty extends Component {
         userStorage.storeUser(user)
         this.updateUserAndParties()
         this.setState({ loading: false, party_name: "" })
+        window.location.reload(false);
     }
 }
 

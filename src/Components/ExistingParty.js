@@ -3,6 +3,7 @@ import '../Style/WelcomeScreen.css'
 import { Typography, Button } from '@material-ui/core';
 import partyService from "../Backend/services/partyService"
 import userService from "../Backend/services/userService"
+import userStorage from "../Backend/localStorage/userStorage"
 
 class ExistingParty extends Component {
 
@@ -40,21 +41,21 @@ class ExistingParty extends Component {
     deleteParty = async () => {
         var party_members = await partyService.getPartyMembersById(this.state.party.id);
         party_members.forEach(async (val, ind) => {
-            var user = val;
-            console.log(user)
-            delete user.party_id[this.state.party.id]
+            delete val.party_id[this.state.party.id]
             var data_user = {
-                party_id: user.party_id
+                party_id: val.party_id
             }
-            console.log(user)
-            // var user_updated = await userService.editUser(val.id, data_user)
+            var user = await userService.editUser(val.id, data_user);
         })
-        // var party = await partyService.deletePartyById(this.state.party.id)
-        // var data = {
-        //     party_id: ""
-        // }
-        // var user = await userService.editUser(this.state.user.id, data)
-        // userStorage.storeUser(user)
+        var party = await partyService.deletePartyById(this.state.party.id)
+        var new_party_id = this.state.user.party_id;
+        delete new_party_id[this.state.party.id];
+        var data_user = {
+            party_id: new_party_id
+        }
+        var user = await userService.editUser(this.state.user.id, data_user);
+        userStorage.storeUser(user);
+        window.location.reload(false);
     }
 }
 

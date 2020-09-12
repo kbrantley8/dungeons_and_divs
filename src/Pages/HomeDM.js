@@ -26,7 +26,7 @@ class HomeDM extends Component {
             newParty: true,
             showPartyInput: false,
             party_name: "",
-            party: {},
+            parties: {},
             party_error: "",
             sheets: [],
             main_tab_index: 0,
@@ -152,8 +152,9 @@ class HomeDM extends Component {
                         : null}
                     </div>
                 </div>
-                {/* {(this.state.party.id) ? <ChatWidget party={this.state.party} user={this.state.user}/> : null} */}
-                
+                {(Object.keys(this.state.parties).length !== 0) ? 
+                    <ChatWidget parties={this.state.parties} user={this.state.user}/>
+                : null}
             </div>
         );
     }
